@@ -22,6 +22,9 @@
     <!-- Toastify -->
     <link rel="stylesheet" href="{{ asset('vendors') }}/toastify/toastify.css">
 
+    <!-- Include Choices CSS -->
+    <link rel="stylesheet" href="{{ asset('vendors') }}/choices.js/choices.min.css" />
+
     <!-- Sweetalert -->
     <link rel="stylesheet" href="{{ asset('vendors') }}/sweetalert2/sweetalert2.min.css">
 
@@ -49,14 +52,14 @@
                     <ul class="menu">
                         <li class='sidebar-title'>Menu</li>
 
-                        <li class="sidebar-item active ">
+                        <li class="sidebar-item {{ request()->is('dashboard') ? 'active' : '' }}">
                             <a href="{{ route('dashboard') }}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-item  has-sub">
+                        <li class="sidebar-item {{ request()->is('users') ? 'active' : '' }}  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
                                 <span>Data Master</span>
@@ -67,6 +70,21 @@
                                 </li>
                             </ul>
                         </li>
+
+                        <li class="sidebar-item {{ request()->is('distributor') ? 'active' : '' }}">
+                            <a href="{{ route('distributor.index') }}" class='sidebar-link'>
+                                <i class="fas fa-user-shield"></i>
+                                <span>Data Distributor</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item {{ request()->is('barang') ? 'active' : '' }}">
+                            <a href="{{ route('barang.index') }}" class='sidebar-link'>
+                                <i class="fas fa-tags"></i>
+                                <span>Data Barang</span>
+                            </a>
+                        </li>
+
 
                     </ul>
                 </div>
@@ -115,6 +133,9 @@
     <!-- Sweetalert -->
     <script src="{{ asset('vendors') }}/sweetalert2/sweetalert2.all.min.js"></script>
 
+    <!-- Include Choices JavaScript -->
+    <script src="{{ asset('vendors') }}/choices.js/choices.min.js"></script>
+
     <script>
         $(document).ready(function() {
             var table = $('.table').DataTable({
@@ -158,6 +179,39 @@
             })
 
         });
+
+        $('#harga_pokok').on('keyup', function() {
+            var pokok = $(this).val();
+
+            $("#harga_jual").empty();
+            $("#harga_jual").val(pokok);
+        })
+
+        $('#ppn').on('keyup', function() {
+            var ppn = $(this).val();
+            var pokok = parseInt($('#harga_pokok').val());
+
+            var total = ppn * pokok / 100;
+            var hargaJual = pokok + total;
+            $("#harga_jual").empty();
+
+            $("#harga_jual").val(hargaJual);
+        })
+
+        $('#diskon').on('keyup', function() {
+            var diskon = $(this).val();
+            var pokok = parseInt($("#harga_pokok").val());
+            var ppn = parseInt($("#ppn").val());
+            // var harga = parseInt($('#harga_jual').val());
+            var harga = ppn * pokok / 100;
+            var totalHarga = pokok + harga;
+            var total = diskon * totalHarga / 100;
+
+            var hargaJual = totalHarga - total;
+            $("#harga_jual").empty();
+
+            $("#harga_jual").val(hargaJual);
+        })
     </script>
 
     @if(session('success'))
