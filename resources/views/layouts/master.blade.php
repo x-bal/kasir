@@ -80,8 +80,15 @@
 
                         <li class="sidebar-item {{ request()->is('barang') ? 'active' : '' }}">
                             <a href="{{ route('barang.index') }}" class='sidebar-link'>
-                                <i class="fas fa-tags"></i>
+                                <i class="fas fa-store"></i>
                                 <span>Data Barang</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item {{ request()->is('stok') ? 'active' : '' }}">
+                            <a href="{{ route('stok.index') }}" class='sidebar-link'>
+                                <i class="fas fa-tags"></i>
+                                <span>Data Stok</span>
                             </a>
                         </li>
 

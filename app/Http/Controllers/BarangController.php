@@ -46,13 +46,26 @@ class BarangController extends Controller
         return view('barang.edit', compact('barang', 'distributor'));
     }
 
-    public function update(Request $request, Barang $barang)
+    public function update(Barang $barang)
     {
-        //
+        request()->validate([
+            'nama_barang' => 'required',
+            'distributor_id' => 'required',
+            'harga_pokok' => 'required',
+            'ppn' => 'required',
+        ]);
+
+        $input = request()->all();
+
+        $barang->update($input);
+
+        return redirect()->route('barang.index')->with('success', 'Barang berhasil diupdate');
     }
 
     public function destroy(Barang $barang)
     {
-        //
+        $barang->delete();
+
+        return redirect()->route('barang.index')->with('success', 'Barang berhasil dihapus');
     }
 }

@@ -28,4 +28,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('barang', 'BarangController');
     // Route Distributor
     Route::resource('distributor', 'DistributorController');
+    // Route Stok
+    Route::resource('stok', 'StokController');
 });

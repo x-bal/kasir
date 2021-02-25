@@ -7,7 +7,8 @@
             <div class="card-header">Edit Barang</div>
 
             <div class="card-body">
-                <form action="{{ route('barang.store') }}" method="post">
+                <form action="{{ route('barang.update', $barang->id) }}" method="post">
+                    @method('PATCH')
                     @csrf
 
                     <div class="form-group">
@@ -68,7 +69,7 @@
 
                     <div class="form-group">
                         <label for="harga_jual">Harga Jual</label>
-                        <input type="number" name="harga_jual" id="harga_jual" class="form-control" readonly>
+                        <input type="number" name="harga_jual" id="harga_jual" class="form-control" value="{{ $barang->harga_jual }}" readonly>
 
                         @error('harga_jual')
                         <small class="text-danger">{{ $message }}</small>
