@@ -26,7 +26,15 @@ class StokController extends Controller
             'jumlah' => 'required',
         ]);
 
-        Stok::create(request()->all());
+        $input = request()->except('_token');
+        Stok::updateOrCreate(
+            [
+                'barang_id' => $input['barang_id']
+            ],
+            [
+                'jumlah' => $input['jumlah']
+            ]
+        );
 
         return redirect()->route('stok.index')->with('success', 'Stok berhasil ditambahkan');
     }
@@ -48,6 +56,7 @@ class StokController extends Controller
 
     public function destroy(Stok $stok)
     {
-        //
+        $stok->delete();
+        return redirect()->route('stok.index')->with('success', 'Stok berhasil dihapus');
     }
 }

@@ -58,17 +58,12 @@
                                 <span>Dashboard</span>
                             </a>
                         </li>
-
-                        <li class="sidebar-item {{ request()->is('users') ? 'active' : '' }}  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-stack"></i>
-                                <span>Data Master</span>
+                        @if(auth()->user()->level->level == 'admin')
+                        <li class="sidebar-item {{ request()->is('users') ? 'active' : '' }}">
+                            <a href="{{ route('users.index') }}" class='sidebar-link'>
+                                <i class="fas fa-users"></i>
+                                <span>Data User</span>
                             </a>
-                            <ul class="submenu ">
-                                <li>
-                                    <a href="{{ route('users.index') }}">Data Users</a>
-                                </li>
-                            </ul>
                         </li>
 
                         <li class="sidebar-item {{ request()->is('distributor') ? 'active' : '' }}">
@@ -77,7 +72,16 @@
                                 <span>Data Distributor</span>
                             </a>
                         </li>
+                        @endif
 
+                        <li class="sidebar-item {{ request()->is('member') ? 'active' : '' }}">
+                            <a href="{{ route('member.index') }}" class='sidebar-link'>
+                                <i class="fas fa-user-tag"></i>
+                                <span>Data Member</span>
+                            </a>
+                        </li>
+
+                        @if(auth()->user()->level->level == 'admin')
                         <li class="sidebar-item {{ request()->is('barang') ? 'active' : '' }}">
                             <a href="{{ route('barang.index') }}" class='sidebar-link'>
                                 <i class="fas fa-store"></i>
@@ -91,6 +95,26 @@
                                 <span>Data Stok</span>
                             </a>
                         </li>
+                        @endif
+                        <li class="sidebar-item {{ request()->is('') ? 'active' : '' }}">
+                            <a href="{{ route('member.index') }}" class='sidebar-link'>
+                                <i class="far fa-credit-card"></i>
+                                <span>{{ auth()->user()->level->level == 'admin' ? 'Data Transaksi' : 'Transaksi' }}</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();" class='sidebar-link'>
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
+
 
 
                     </ul>

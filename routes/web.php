@@ -22,12 +22,17 @@ Auth::routes();
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
-    // Route Users
-    Route::resource('users', 'UserController');
-    // Route Barang
-    Route::resource('barang', 'BarangController');
-    // Route Distributor
-    Route::resource('distributor', 'DistributorController');
-    // Route Stok
-    Route::resource('stok', 'StokController');
+    Route::middleware('admin')->group(function () {
+        // Route Users
+        Route::resource('users', 'UserController');
+        // Route Barang
+        Route::resource('barang', 'BarangController');
+        // Route Distributor
+        Route::resource('distributor', 'DistributorController');
+        // Route Stok
+        Route::resource('stok', 'StokController');
+    });
+
+    // Route Member
+    Route::resource('member', 'MemberController');
 });
