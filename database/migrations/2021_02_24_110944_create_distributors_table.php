@@ -15,9 +15,9 @@ class CreateDistributorsTable extends Migration
     {
         Schema::create('distributor', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_distributor');
+            $table->string('nama_distributor', 128);
             $table->text('alamat');
-            $table->string('telp');
+            $table->string('telp',15);
             $table->timestamps();
         });
     }

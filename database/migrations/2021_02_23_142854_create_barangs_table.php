@@ -17,7 +17,7 @@ class CreateBarangsTable extends Migration
             $table->id();
             $table->foreignId('stok_id');
             $table->foreignId('distributor_id');
-            $table->string('nama_barang');
+            $table->string('nama_barang', 128);
             $table->bigInteger('harga_pokok');
             $table->integer('ppn');
             $table->integer('diskon');

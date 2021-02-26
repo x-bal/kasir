@@ -15,5 +15,8 @@ class CreateLevelSeeder extends Seeder
         Level::create([
             'level' => 'admin'
         ]);
+        Level::create([
+            'level' => 'karyawan'
+        ]);
     }
 }

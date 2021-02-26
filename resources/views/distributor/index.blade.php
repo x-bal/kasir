@@ -21,7 +21,7 @@
                     </thead>
 
                     <tbody>
-                        @forelse($distributor as $distri)
+                        @foreach($distributor as $distri)
                         <tr>
                             <td></td>
                             <td>{{ $loop->iteration }}</td>
@@ -37,9 +37,7 @@
                                 </form>
                             </td>
                         </tr>
-                        @empty
-                        <p>Tidak ada data distributor</p>
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
             </div>

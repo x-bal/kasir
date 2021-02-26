@@ -15,13 +15,13 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('level_id');
-            $table->string('username')->unique();
-            $table->string('nama');
-            $table->string('jk');
+            $table->foreignId('level_id');
+            $table->string('username', 128)->unique();
+            $table->string('nama', 128);
+            $table->string('jk', 20);
             $table->text('alamat');
-            $table->string('telp');
-            $table->string('password');
+            $table->string('telp',15);
+            $table->string('password',128);
             $table->timestamps();
         });
     }
