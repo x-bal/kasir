@@ -96,8 +96,8 @@
                             </a>
                         </li>
                         @endif
-                        <li class="sidebar-item {{ request()->is('') ? 'active' : '' }}">
-                            <a href="{{ route('member.index') }}" class='sidebar-link'>
+                        <li class="sidebar-item {{ request()->is('transaksi') ? 'active' : '' }}">
+                            <a href="{{ route('transaksi.index') }}" class='sidebar-link'>
                                 <i class="far fa-credit-card"></i>
                                 <span>{{ auth()->user()->level->level == 'admin' ? 'Data Transaksi' : 'Transaksi' }}</span>
                             </a>

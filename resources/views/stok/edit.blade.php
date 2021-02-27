@@ -1,39 +1,38 @@
-@extends('layouts.master', ['title' => 'Edit Distributor'])
+@extends('layouts.master', ['title' => 'Edit Stok'])
 
 @section('content')
 <div class="row">
     <div class="col-md-8">
         <div class="card">
-            <div class="card-header">Edit Distributor</div>
+            <div class="card-header">Edit Stok</div>
 
             <div class="card-body">
-                <form action="{{ route('distributor.update', $distributor->id) }}" method="post">
+                <form action="{{ route('stok.update', $stok->id) }}" method="post">
                     @method('PATCH')
                     @csrf
 
                     <div class="form-group">
-                        <label for="nama_distributor">Nama Distributor</label>
-                        <input type="text" name="nama_distributor" id="nama_distributor" class="form-control" value="{{ $distributor->nama_distributor }}">
+                        <label for="barang">Nama Barang</label>
+                        <select name="barang_id" id="distributor" class="choices form-select">
+                            @foreach($barang as $brg)
+                            @if($stok->barang_id == $brg->id)
+                            <option selected value="{{ $brg->id }}">{{ $brg->nama_barang }} ({{$brg->distributor->nama_distributor}})</option>
+                            @else
+                            <option value="{{ $brg->id }}">{{ $brg->nama_barang }} ({{$brg->distributor->nama_distributor}})</option>
+                            @endif
+                            @endforeach
+                        </select>
 
-                        @error('nama_distributor')
+                        @error('barang_id')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
 
                     <div class="form-group">
-                        <label for="alamat">Alamat</label>
-                        <textarea name="alamat" id="alamat" rows="4" class="form-control">{{ $distributor->alamat }}</textarea>
+                        <label for="jumlah">Jumlah</label>
+                        <input type="number" name="jumlah" id="jumlah" class="form-control" value="{{ $stok->jumlah }}">
 
-                        @error('alamat')
-                        <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="telp">Telp</label>
-                        <input type="number" name="telp" id="telp" class="form-control" value="{{ $distributor->telp }}">
-
-                        @error('telp')
+                        @error('jumlah')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>

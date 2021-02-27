@@ -46,12 +46,19 @@ class StokController extends Controller
 
     public function edit(Stok $stok)
     {
-        //
+        $barang = Barang::all();
+        return view('stok.edit', compact('barang', 'stok'));
     }
 
     public function update(Request $request, Stok $stok)
     {
-        //
+        request()->validate([
+            'barang_id' => 'required',
+            'jumlah' => 'required',
+        ]);
+
+        $stok->update(request()->all());
+        return redirect()->route('stok.index')->with('success', 'Stok berhasil diupdate');
     }
 
     public function destroy(Stok $stok)

@@ -20,7 +20,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::middleware('auth')->group(function () {
+    // Route Dashboard
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    // Route Member
+    Route::resource('member', 'MemberController');
+    // Route Transaksi
+    Route::resource('transaksi', 'TransaksiController');
 
     Route::middleware('admin')->group(function () {
         // Route Users
@@ -32,7 +37,4 @@ Route::middleware('auth')->group(function () {
         // Route Stok
         Route::resource('stok', 'StokController');
     });
-
-    // Route Member
-    Route::resource('member', 'MemberController');
 });
