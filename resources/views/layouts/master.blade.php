@@ -22,8 +22,8 @@
     <!-- Toastify -->
     <link rel="stylesheet" href="{{ asset('vendors') }}/toastify/toastify.css">
 
-    <!-- Include Choices CSS -->
-    <link rel="stylesheet" href="{{ asset('vendors') }}/choices.js/choices.min.css" />
+    <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <!-- Sweetalert -->
     <link rel="stylesheet" href="{{ asset('vendors') }}/sweetalert2/sweetalert2.min.css">
@@ -164,12 +164,12 @@
     <!-- Sweetalert -->
     <script src="{{ asset('vendors') }}/sweetalert2/sweetalert2.all.min.js"></script>
 
-    <!-- Include Choices JavaScript -->
-    <script src="{{ asset('vendors') }}/choices.js/choices.min.js"></script>
+    <!-- Select2 -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
         $(document).ready(function() {
-            var table = $('.table').DataTable({
+            var table = $('#table').DataTable({
                 responsive: {
                     details: {
                         type: 'column'
@@ -188,6 +188,12 @@
             });
 
             new $.fn.dataTable.FixedHeader(table);
+        });
+
+        $(document).ready(function() {
+            $('.select2').select2({
+                width: 'resolve'
+            });
         });
     </script>
 
@@ -242,6 +248,22 @@
             $("#harga_jual").empty();
 
             $("#harga_jual").val(hargaJual);
+        });
+
+        $(".target-barang").on('change', function() {
+            var idBarang = $(this).val();
+
+            $.ajax({
+                url: '/transaksi/getBarang/' + idBarang,
+                method: 'get',
+                success: function(result) {
+                    $("#target").append(`<tr>
+                        <td>` + result.nama_barang + `</td>
+                        <td>` + result.harga_jual + `</td>
+                        <td>` + result.harga_jual + `</td>
+                    </tr>`)
+                }
+            })
         })
     </script>
 

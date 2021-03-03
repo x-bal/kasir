@@ -25,6 +25,7 @@ Route::middleware('auth')->group(function () {
     // Route Member
     Route::resource('member', 'MemberController');
     // Route Transaksi
+    Route::get('/transaksi/getBarang/{id}', 'TransaksiController@getBarang');
     Route::resource('transaksi', 'TransaksiController');
 
     Route::middleware('admin')->group(function () {

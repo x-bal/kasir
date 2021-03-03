@@ -8,5 +8,10 @@ class Transaksi extends Model
 {
     protected $table = 'transaksi';
 
-    protected $fillable = ['barang_id', 'user_id', 'member_id', 'total'];
+    protected $fillable = ['user_id', 'member_id',];
+
+    public function barangs()
+    {
+        return $this->belongsToMany(Barang::class);
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\{Transaksi, Barang};
+use App\{Barang, Transaksi, Stok, Member};
 use Illuminate\Http\Request;
 
 class TransaksiController extends Controller
@@ -15,13 +15,26 @@ class TransaksiController extends Controller
 
     public function create()
     {
-        $barang = Barang::all();
-        return view('transaksi.create', compact('barang'));
+        $stok = Stok::with('barang')->get();
+        $members = Member::get();
+
+        return view('transaksi.create', compact('stok', 'members'));
     }
 
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'barangs' => 'required'
+        ]);
+
+        $input = request()->all();
+        $input['user_id'] = auth()->user()->id;
+
+        $transaksi = Transaksi::create($input);
+
+        $transaksi->barangs()->attach(request('barangs'));
+
+        return back();
     }
 
     public function show(Transaksi $transaksi)
@@ -42,5 +55,11 @@ class TransaksiController extends Controller
     public function destroy(Transaksi $transaksi)
     {
         //
+    }
+
+    public function getBarang($id)
+    {
+        $barang = Barang::findOrFail($id);
+        return response($barang);
     }
 }

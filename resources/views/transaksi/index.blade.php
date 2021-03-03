@@ -8,13 +8,11 @@
 
             <div class="card-body">
                 <a href="{{ route('transaksi.create') }}" class="btn btn-sm btn-primary mb-3">Tambah Transaksi</a>
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped" id="table">
                     <thead>
                         <tr>
                             <th></th>
                             <th>No</th>
-                            <th>Nama Barang</th>
-                            <th>Distributor</th>
                             <th>Jumlah</th>
                             <th>Opsi</th>
                         </tr>
@@ -25,8 +23,6 @@
                         <tr>
                             <td></td>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $trx->barang->nama_barang }}</td>
-                            <td>{{ $trx->barang->distributor->nama_distributor }}</td>
                             <td>{{ $trx->jumlah }}</td>
                             <td>
                                 <a href="{{ route('transaksi.edit', $trx->id) }}" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>

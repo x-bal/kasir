@@ -19,4 +19,9 @@ class Barang extends Model
     {
         return $this->belongsTo(Distributor::class);
     }
+
+    public function transaksis()
+    {
+        return $this->belongsToMany(Transaksi::class);
+    }
 }
