@@ -278,13 +278,22 @@
                     $("#target").append(`<tr>
                         <td>` + result.nama_barang + `</td>
                         <td>` + result.harga_jual + `</td>
+                        <td>` + result.diskon + `</td>
                         <td>` + qty + `</td>
-                        <td><a href="#" class="btn btn-sm btn-danger remove"><i class="fas fa-times"></i></a></td>
+                        <td>` + qty + `</td>
+                        <td><button type="button" class="btn btn-sm btn-danger remove"><i class="fas fa-times"></i></button></td>
                     </tr>`);
                 }
             })
 
-        })
+        });
+
+        $(".add-row").on('click', function() {
+            addRow()
+        });
+
+
+
 
         $(".remove").on('click', function() {
             console.log("ok")

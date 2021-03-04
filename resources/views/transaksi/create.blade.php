@@ -7,60 +7,57 @@
             <div class="card-header">Tambah Transaksi</div>
 
             <div class="card-body">
-                <a href="" class="btn btn-sm btn-primary mb-3" style="float: right;">Tambah Baris</a>
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered tale-striped">
                     <thead>
                         <tr>
-                            <th width="240">Produk</th>
+                            <th width="240">Nama Barang</th>
                             <th>Qty</th>
                             <th>Harga</th>
                             <th>Disc</th>
                             <th>Total</th>
-                            <th>Opsi</th>
+                            <th><a href="#" class="add-row"><i class="fas fa-plus"></i></a></th>
                         </tr>
                     </thead>
 
-                    <tbody>
-                        <td>
-                            <select name="barang" id="select-barang" class="form-control select2">
-                                <option disabled selected>-- Pilih Barang --</option>
-                                @foreach($stok as $stk)
-                                <option value="{{ $stk->barang->id }}">{{ $stk->barang->nama_barang }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td>
-                            <input type="number" name="qty" id="qty" class="form-control form-control-sm">
-                        </td>
-                        <td>
-                            <input type="number" disabled name="harga" id="harga" class="form-control form-control-sm">
-                        </td>
-                        <td>
-                            <input type="number" disabled name="disc" id="disc" class="form-control form-control-sm">
-                        </td>
-                        <td>
-                            <input type="number" disabled name="total" id="total" class="form-control form-control-sm">
-                        </td>
-                        <td>
-                            <a href="" class="btn btn-sm btn-danger"><i class="fas fa-times"></i></a>
-                        </td>
+                    <tbody id="target">
+                        <tr>
+                            <td>
+                                <select name="barang" id="select-barang" class="form-control select2">
+                                    <option disabled selected>-- Pilih barang --</option>
+                                    @foreach($stok as $stk)
+                                    <option value="{{ $stk->barang->id }}">{{ $stk->barang->nama_barang }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" name="qty" id="qty" class="form-control">
+                            </td>
+                            <td>
+                                <input type="number" name="harga" id="harga" class="form-control" disabled>
+                            </td>
+                            <td>
+                                <input type="number" name="dis" id="dis" class="form-control" disabled>
+                            </td>
+                            <td>
+                                <input type="number" name="total" id="total" class="form-control" disabled>
+                            </td>
+                            <td>
+                                <a href="#" class="btn btn-danger btn-sm remove"><i class="fas fa-times"></i></a>
+                            </td>
+
+                        </tr>
                     </tbody>
                 </table>
 
-                <!-- <div class="form-group">
-                    <label for="member">Nama Member</label>
-                    <select name="member_id" id="member" class="form-control select2">
-                        <option disabled selected>-- Pilih Member --</option>
-                        @foreach($members as $member)
-                        <option value="{{ $member->id }}">{{ $member->nama_member }}</option>
-                        @endforeach
-                    </select>
-                </div> -->
-
-                <!-- <button type="button" class="btn btn-sm btn-primary btn-tambah">Tambah</button> -->
-                </form>
+                <button type="button" class="btn btn-sm btn-primary btn-tambah">Tambah</button>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+
     </div>
 </div>
 @stop
