@@ -8,7 +8,7 @@ class Barang extends Model
 {
     protected $table = 'barang';
 
-    protected $fillable = ['distributor_id', 'nama_barang', 'harga_pokok', 'ppn', 'diskon', 'harga_jual'];
+    protected $fillable = ['distributor_id', 'kode_barang', 'nama_barang', 'harga_pokok', 'ppn', 'diskon', 'harga_jual'];
 
     public function stok()
     {
@@ -23,5 +23,10 @@ class Barang extends Model
     public function transaksis()
     {
         return $this->belongsToMany(Transaksi::class);
+    }
+
+    public function order()
+    {
+        return $this->hasOne(Order::class);
     }
 }

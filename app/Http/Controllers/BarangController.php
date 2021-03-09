@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\{Barang, Distributor};
-use Illuminate\Http\Request;
+
+use PDF;
 
 class BarangController extends Controller
 {
@@ -28,7 +29,9 @@ class BarangController extends Controller
             'ppn' => 'required',
         ]);
 
+        $kode = 'BRG' . rand(1000, 9999);
         $input = request()->all();
+        $input['kode_barang'] = $kode;
 
         Barang::create($input);
 
@@ -67,5 +70,18 @@ class BarangController extends Controller
         $barang->delete();
 
         return redirect()->route('barang.index')->with('success', 'Barang berhasil dihapus');
+    }
+
+    public function laporan()
+    {
+        return view('barang.laporan');
+    }
+
+    public function generate()
+    {
+        $barang = Barang::with('stok', 'distributor')->whereYear('created_at', '=', request('tahun'))->whereMonth('created_at', '=', request('bulan'))->get();
+        $pdf = PDF::loadview('barang.generate', ['barang' => $barang]);
+
+        return $pdf->download('Laporan-Stok-Barang.pdf');
     }
 }

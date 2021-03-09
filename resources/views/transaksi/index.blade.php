@@ -13,6 +13,8 @@
                         <tr>
                             <th></th>
                             <th>No</th>
+                            <th>Invoice</th>
+                            <th>Kasir</th>
                             <th>Jumlah</th>
                             <th>Opsi</th>
                         </tr>
@@ -23,8 +25,12 @@
                         <tr>
                             <td></td>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $trx->jumlah }}</td>
+                            <td>{{ $trx->invoice }}</td>
+                            <td>{{ $trx->user->nama }}</td>
+                            <td>@rupiah($trx->total)</td>
                             <td>
+                                <a href="{{ route('transaksi.show', $trx->id) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+                                <a href="{{ route('transaksi.print', $trx->id) }}" class="btn btn-sm btn-secondary"><i class="fas fa-file-pdf"></i></a>
                                 <a href="{{ route('transaksi.edit', $trx->id) }}" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
                                 <form action="{{ route('transaksi.destroy', $trx->id) }}" method="post" style="display: inline;" class="delete-form">
                                     @method('DELETE')

@@ -1,39 +1,56 @@
-@extends('layouts.master', ['title' => 'Edit Distributor'])
+@extends('layouts.master', ['title' => 'Edit Member'])
 
 @section('content')
 <div class="row">
     <div class="col-md-8">
         <div class="card">
-            <div class="card-header">Edit Distributor</div>
+            <div class="card-header">Edit Member</div>
 
             <div class="card-body">
-                <form action="{{ route('distributor.update', $distributor->id) }}" method="post">
+                <form action="{{ route('member.update', $member->id) }}" method="post">
                     @method('PATCH')
                     @csrf
 
                     <div class="form-group">
-                        <label for="nama_distributor">Nama Distributor</label>
-                        <input type="text" name="nama_distributor" id="nama_distributor" class="form-control" value="{{ $distributor->nama_distributor }}">
+                        <label for="member">Nama Member</label>
+                        <input type="text" name="nama_member" id="member" class="form-control" value="{{ $member->nama_member }}">
 
-                        @error('nama_distributor')
+                        @error('nama_member')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
 
                     <div class="form-group">
-                        <label for="alamat">Alamat</label>
-                        <textarea name="alamat" id="alamat" rows="4" class="form-control">{{ $distributor->alamat }}</textarea>
+                        <label for="">Jenis Kelamin</label><br>
+                        <input class="form-check-input" type="radio" name="jk" id="lk" value="Laki-Laki" {{ $member->jk == 'Laki-Laki' ? 'checked' : '' }}>
+                        <label class="form-check-label" for="lk">
+                            Laki-Laki
+                        </label>
+                        <input class="form-check-input" type="radio" name="jk" id="pr" value="Perempuan" {{ $member->jk == 'Perempuan' ? 'checked' : '' }}>
+                        <label class="form-check-label" for="pr">
+                            Perempuan
+                        </label>
+                        <br>
 
-                        @error('alamat')
+                        @error('jk')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="telp">Telp</label>
-                        <input type="number" name="telp" id="telp" class="form-control" value="{{ $distributor->telp }}">
+                        <input type="number" name="telp" id="telp" class="form-control" value="{{ $member->telp }}">
 
                         @error('telp')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alamat">Alamat</label>
+                        <textarea name="alamat" id="alamat" rows="4" class="form-control">{{ $member->alamat }}</textarea>
+
+                        @error('alamat')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>

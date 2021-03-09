@@ -13,6 +13,7 @@
                         <tr>
                             <th></th>
                             <th>No</th>
+                            <th>Kode Barang</th>
                             <th>Nama Barang</th>
                             <th>Distributor</th>
                             <th>Jumlah</th>
@@ -25,6 +26,7 @@
                         <tr>
                             <td></td>
                             <td>{{ $loop->iteration }}</td>
+                            <td>{{ $stok->barang->kode_barang }}</td>
                             <td>{{ $stok->barang->nama_barang }}</td>
                             <td>{{ $stok->barang->distributor->nama_distributor }}</td>
                             <td>{{ $stok->jumlah }}</td>

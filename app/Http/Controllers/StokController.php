@@ -27,14 +27,7 @@ class StokController extends Controller
         ]);
 
         $input = request()->except('_token');
-        Stok::updateOrCreate(
-            [
-                'barang_id' => $input['barang_id']
-            ],
-            [
-                'jumlah' => $input['jumlah']
-            ]
-        );
+        Stok::create($input);
 
         return redirect()->route('stok.index')->with('success', 'Stok berhasil ditambahkan');
     }

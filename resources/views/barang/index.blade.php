@@ -13,6 +13,7 @@
                         <tr>
                             <th></th>
                             <th>No</th>
+                            <th>Kode Barang</th>
                             <th>Nama Barang</th>
                             <th>Harga Pokok</th>
                             <th>PPN</th>
@@ -27,6 +28,7 @@
                         <tr>
                             <td></td>
                             <td>{{ $loop->iteration }}</td>
+                            <td>{{ $brg->kode_barang }}</td>
                             <td>{{ $brg->nama_barang }}</td>
                             <td>@rupiah($brg->harga_pokok)</td>
                             <td>{{ $brg->ppn }}%</td>

@@ -19,13 +19,13 @@
                     <div class="card-body px-3 py-4-5">
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="stats-icon purple">
-                                    <i class='iconly-boldShow'></i>
+                                <div class="stats-icon purple text-white">
+                                    <i class='fas fa-users'></i>
                                 </div>
                             </div>
                             <div class="col-md-8">
-                                <h6 class="text-muted font-semibold">Profile Views</h6>
-                                <h6 class='font-extrabold mb-0'>112.000</h6>
+                                <h6 class="text-muted font-semibold">Total Users</h6>
+                                <h6 class='font-extrabold mb-0'>{{ $user }}</h6>
                             </div>
                         </div>
                     </div>
@@ -36,13 +36,13 @@
                     <div class="card-body px-3 py-4-5">
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="stats-icon blue">
-                                    <i class='iconly-boldProfile'></i>
+                                <div class="stats-icon blue text-white">
+                                    <i class='fas fa-user-tag'></i>
                                 </div>
                             </div>
                             <div class="col-md-8">
-                                <h6 class="text-muted font-semibold">Followers</h6>
-                                <h6 class='font-extrabold mb-0'>183.000</h6>
+                                <h6 class="text-muted font-semibold">Total Member</h6>
+                                <h6 class='font-extrabold mb-0'>{{ $member }}</h6>
                             </div>
                         </div>
                     </div>
@@ -53,13 +53,13 @@
                     <div class="card-body px-3 py-4-5">
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="stats-icon green">
-                                    <i class='iconly-boldAdd-User'></i>
+                                <div class="stats-icon green text-white">
+                                    <i class='fas fa-user-shield'></i>
                                 </div>
                             </div>
                             <div class="col-md-8">
-                                <h6 class="text-muted font-semibold">Following</h6>
-                                <h6 class='font-extrabold mb-0'>80.000</h6>
+                                <h6 class="text-muted font-semibold">Distributor</h6>
+                                <h6 class='font-extrabold mb-0'>{{ $distributor }}</h6>
                             </div>
                         </div>
                     </div>
@@ -70,13 +70,13 @@
                     <div class="card-body px-3 py-4-5">
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="stats-icon red">
-                                    <i class='iconly-boldBookmark'></i>
+                                <div class="stats-icon red text-white">
+                                    <i class='fas fa-store'></i>
                                 </div>
                             </div>
                             <div class="col-md-8">
-                                <h6 class="text-muted font-semibold">Saved Post</h6>
-                                <h6 class='font-extrabold mb-0'>112</h6>
+                                <h6 class="text-muted font-semibold">Barang</h6>
+                                <h6 class='font-extrabold mb-0'>{{ $barang }}</h6>
                             </div>
                         </div>
                     </div>

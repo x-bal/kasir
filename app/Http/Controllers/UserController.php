@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Level;
 use App\User;
-use Illuminate\Http\Request;
+
+use PDF;
+
 
 class UserController extends Controller
 {
@@ -71,5 +73,13 @@ class UserController extends Controller
     {
         $user->delete();
         return redirect()->route('users.index')->with('success', 'User berhasil dihapus');
+    }
+
+    public function generate()
+    {
+        $users = User::where('level_id', 2)->get();
+        $pdf = PDF::loadview('users.generate', ['users' => $users]);
+
+        return $pdf->download('Data-Karyawan.pdf');
     }
 }

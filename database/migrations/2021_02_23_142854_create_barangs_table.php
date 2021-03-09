@@ -15,6 +15,7 @@ class CreateBarangsTable extends Migration
     {
         Schema::create('barang', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_barang');
             $table->foreignId('stok_id');
             $table->foreignId('distributor_id');
             $table->string('nama_barang', 128);

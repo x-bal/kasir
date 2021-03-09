@@ -8,6 +8,7 @@
 
             <div class="card-body">
                 <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary mb-3">Tambah User</a>
+                <a href="{{ route('users.generate') }}" class="btn btn-sm btn-primary mb-3"><i class="fas fa-file"></i> Export</a>
                 <table class="table table-bordered table-striped" id="table">
                     <thead>
                         <tr>

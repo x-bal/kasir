@@ -52,21 +52,21 @@
                     <ul class="menu">
                         <li class='sidebar-title'>Menu</li>
 
-                        <li class="sidebar-item {{ request()->is('dashboard') ? 'active' : '' }}">
+                        <li class="sidebar-item {{ Request::segment(1) == 'dashboard' ? 'active' : '' }} {{ Request::segment(1) == 'profile' ? 'active' : '' }}">
                             <a href="{{ route('dashboard') }}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
                         @if(auth()->user()->level->level == 'admin')
-                        <li class="sidebar-item {{ request()->is('users') ? 'active' : '' }}">
+                        <li class="sidebar-item {{ Request::segment(1) == 'users' ? 'active' : '' }}">
                             <a href="{{ route('users.index') }}" class='sidebar-link'>
                                 <i class="fas fa-users"></i>
                                 <span>Data User</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-item {{ request()->is('distributor') ? 'active' : '' }}">
+                        <li class="sidebar-item {{ Request::segment(1) == 'distributor' ? 'active' : '' }}">
                             <a href="{{ route('distributor.index') }}" class='sidebar-link'>
                                 <i class="fas fa-user-shield"></i>
                                 <span>Data Distributor</span>
@@ -74,7 +74,7 @@
                         </li>
                         @endif
 
-                        <li class="sidebar-item {{ request()->is('member') ? 'active' : '' }}">
+                        <li class="sidebar-item {{ Request::segment(1) == 'member' ? 'active' : '' }}">
                             <a href="{{ route('member.index') }}" class='sidebar-link'>
                                 <i class="fas fa-user-tag"></i>
                                 <span>Data Member</span>
@@ -82,37 +82,49 @@
                         </li>
 
                         @if(auth()->user()->level->level == 'admin')
-                        <li class="sidebar-item {{ request()->is('barang') ? 'active' : '' }}">
+                        <li class="sidebar-item {{ Request::segment(1) == 'barang' ? 'active' : '' }}">
                             <a href="{{ route('barang.index') }}" class='sidebar-link'>
                                 <i class="fas fa-store"></i>
                                 <span>Data Barang</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-item {{ request()->is('stok') ? 'active' : '' }}">
+                        <li class="sidebar-item {{ Request::segment(1) == 'stok' ? 'active' : '' }}">
                             <a href="{{ route('stok.index') }}" class='sidebar-link'>
                                 <i class="fas fa-tags"></i>
                                 <span>Data Stok</span>
                             </a>
                         </li>
-                        @endif
-                        <li class="sidebar-item {{ request()->is('transaksi') ? 'active' : '' }}">
+                        <li class="sidebar-item {{ Request::segment(1) == 'transaksi' ? 'active' : '' }}">
                             <a href="{{ route('transaksi.index') }}" class='sidebar-link'>
                                 <i class="far fa-credit-card"></i>
-                                <span>{{ auth()->user()->level->level == 'admin' ? 'Data Transaksi' : 'Transaksi' }}</span>
+                                <span>Data Transaksi</span>
                             </a>
                         </li>
+                        @endif
 
-                        <li class="sidebar-item">
-                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();" class='sidebar-link'>
-                                <i class="fas fa-sign-out-alt"></i>
-                                <span>Logout</span>
+                        @if(auth()->user()->level->level == 'karyawan')
+                        <li class="sidebar-item {{ Request::segment(1) == 'transaksi' ? 'active' : '' }}">
+                            <a href="{{ route('transaksi.create') }}" class='sidebar-link'>
+                                <i class="far fa-credit-card"></i>
+                                <span>Entri Transaksi</span>
                             </a>
+                        </li>
+                        @endif
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
+                        <li class="sidebar-item {{ Request::segment(1) == 'laporan' ? 'active' : '' }}  has-sub">
+                            <a href="#" class="sidebar-link">
+                                <i class="fas fa-file-alt"></i>
+                                <span>Laporan</span>
+                            </a>
+                            <ul class="submenu" style="display: none;">
+                                <li class="submenu-item ">
+                                    <a href="{{ route('laporan.barang') }}">Stok Barang</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="{{ route('laporan.transaksi') }}">Transaksi</a>
+                                </li>
+                            </ul>
                         </li>
 
 
@@ -122,25 +134,78 @@
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
             </div>
         </div>
-        <div id="main">
-            <header class='mb-3'>
-                <a href="#" class='burger-btn d-block d-xl-none'>
-                    <i class='bi bi-justify fs-3'></i>
-                </a>
+        <div id="main" class="layout-navbar">
+            <header class=''>
+                <nav class="navbar navbar-expand navbar-light ">
+                    <div class="container-fluid">
+                        <a href="#" class="burger-btn d-block">
+                            <i class="bi bi-justify fs-3"></i>
+                        </a>
+
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                            </ul>
+                            <div class="dropdown">
+                                <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <div class="user-menu d-flex">
+                                        <div class="user-name text-end me-3">
+                                            <h6 class="mb-0 text-gray-600">{{ auth()->user()->nama }}</h6>
+                                            <p class="mb-0 text-sm text-gray-600">{{ auth()->user()->level->level }}</p>
+                                        </div>
+                                        <div class="user-img d-flex align-items-center">
+                                            <div class="avatar avatar-md">
+                                                <img src="{{ asset('images') }}/faces/1.jpg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                    <li>
+                                        <h6 class="dropdown-header">Hello, {{ auth()->user()->username }}</h6>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('profile') }}"><i class="icon-mid bi bi-person me-2"></i> My Profile</a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"><i class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
             </header>
 
-            <div class="page-heading">
-                <h3>{{ $title }}</h3>
-            </div>
-            <div class="page-content">
-                @yield('content')
+            <div id="main-content">
+                <div class="page-heading">
+                    <div class="page-title">
+                        <h3>{{ $title }}</h3>
+                    </div>
+                </div>
+                <div class="page-content">
+                    @yield('content')
+                </div>
             </div>
         </div>
     </div>
+
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
-    <script src="{{ asset('vendors') }}/perfect-scrollbar/perfect-scrollbar.min.js">
-    </script>
+    <script src="{{ asset('vendors') }}/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="{{ asset('js') }}/bootstrap.bundle.min.js"></script>
 
     <script src="{{ asset('vendors') }}/apexcharts/apexcharts.js"></script>
@@ -249,57 +314,27 @@
 
             $("#harga_jual").val(hargaJual);
         });
-
-        $(".target-barang").on('change', function() {
-            var idBarang = $(this).val();
-
-            $.ajax({
-                url: '/transaksi/getBarang/' + idBarang,
-                method: 'get',
-                success: function(result) {
-                    $("#target").append(`<tr>
-                        <td>` + result.nama_barang + `</td>
-                        <td>` + result.harga_jual + `</td>
-                        <td>` + result.harga_jual + `</td>
-                    </tr>`)
-                }
-            })
-        });
-
-
-        $(".btn-tambah").on('click', function() {
-            var idBarang = $("#select-barang").val();
-            var qty = $("#qty").val();
-
-            $.ajax({
-                url: '/transaksi/getBarang/' + idBarang,
-                method: 'get',
-                success: function(result) {
-                    $("#target").append(`<tr>
-                        <td>` + result.nama_barang + `</td>
-                        <td>` + result.harga_jual + `</td>
-                        <td>` + result.diskon + `</td>
-                        <td>` + qty + `</td>
-                        <td>` + qty + `</td>
-                        <td><button type="button" class="btn btn-sm btn-danger remove"><i class="fas fa-times"></i></button></td>
-                    </tr>`);
-                }
-            })
-
-        });
-
-        $(".add-row").on('click', function() {
-            addRow()
-        });
-
-
-
-
-        $(".remove").on('click', function() {
-            console.log("ok")
-        })
     </script>
+    <style type="text/css">
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-color: #fff;
+        }
 
+        .preloader .loading {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font: 14px arial;
+        }
+    </style>
+    @yield('footer')
     @if(session('success'))
     <script>
         Toastify({
