@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\{Barang, Transaksi, Stok, Member, Order};
-use Illuminate\Http\Request;
+use App\Http\Requests\TransaksiRequest;
 use PDF;
 
 class TransaksiController extends Controller
@@ -23,7 +23,7 @@ class TransaksiController extends Controller
 
     public function create()
     {
-        $stok = Stok::with('barang')->get();
+        $stok = Stok::with('barang')->where('jumlah', '>', 0)->get();
         $members = Member::get();
 
         $transaksi = Transaksi::max('id');
@@ -39,25 +39,22 @@ class TransaksiController extends Controller
         return view('transaksi.create', compact('stok', 'members', 'total', 'orders'));
     }
 
-    public function store(Request $request)
+    public function store(TransaksiRequest $request)
     {
-        request()->validate([
-            'total' => 'required',
-            'bayar' => 'required',
-            'kembalian' => 'required'
-        ]);
 
-        $input = request()->all();
+        $input = $request->all();
         $inv = 'INV/' . date('dmy') . '/' . rand(10000, 99999);
 
         $input['user_id'] = auth()->user()->id;
         $input['invoice'] = $inv;
 
-        Transaksi::create($input);
+        $transaksi = Transaksi::create($input);
         if (auth()->user()->level->level == 'karyawan') {
             return back()->with('success', 'Transaksi Berhasil');
         }
-        return redirect()->route('transaksi.index')->with('success', 'Transaksi Berhasil');
+
+        return view('transaksi.struk', compact('transaksi'));
+        // return redirect()->route('transaksi.index')->with('success', 'Transaksi Berhasil');
     }
 
     public function show(Transaksi $transaksi)
@@ -76,14 +73,8 @@ class TransaksiController extends Controller
         return view('transaksi.edit', compact('stok', 'members', 'total', 'orders', 'transaksi'));
     }
 
-    public function update(Request $request, Transaksi $transaksi)
+    public function update(TransaksiRequest $request, Transaksi $transaksi)
     {
-        request()->validate([
-            'total' => 'required',
-            'bayar' => 'required',
-            'kembalian' => 'required'
-        ]);
-
         $input = request()->all();
 
         $input['user_id'] = auth()->user()->id;
@@ -102,8 +93,17 @@ class TransaksiController extends Controller
 
     public function print(Transaksi $transaksi)
     {
+        // return view('transaksi.print', compact('transaksi'));
+        // PDF::setOptions(['dpi' => 150, 'defaultFont' => 'Arial']);
         $pdf = PDF::loadview('transaksi.print', ['transaksi' => $transaksi]);
         return $pdf->download('struk-pdf.pdf');
+
+        // return redirect()->route('transaksi.index')->with('success', 'Transaksi Berhasil');
+    }
+
+    public function struk(Transaksi $transaksi)
+    {
+        return view('transaksi.struk', compact('transaksi'));
     }
 
     public function laporan()
@@ -113,8 +113,17 @@ class TransaksiController extends Controller
 
     public function generate()
     {
-        $transaksi = Transaksi::with('user')->whereYear('created_at', '=', request('tahun'))->whereMonth('created_at', '=', request('bulan'))->get();
-        $pdf = PDF::loadview('transaksi.generate', ['transaksi' => $transaksi]);
-        return $pdf->download('struk-pdf.pdf');
+        request()->validate([
+            'mulai' => 'required',
+            'sampai' => 'required',
+        ], [
+            'mulai.required' => 'Pilih tanggal mulai',
+            'sampai.required' => 'Pilih tanggal sampai',
+        ]);
+
+        $transaksi = Transaksi::with('user')->whereBetween('created_at', [request('mulai'), request('sampai')])->get();
+
+        $pdf = PDF::loadview('transaksi.generate', ['transaksi' => $transaksi])->setPaper('a4', 'landscape');
+        return $pdf->download('Laporan-Transaksi.pdf');
     }
 }

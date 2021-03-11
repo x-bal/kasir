@@ -32,7 +32,7 @@
                             <td>{{ $brg->nama_barang }}</td>
                             <td>@rupiah($brg->harga_pokok)</td>
                             <td>{{ $brg->ppn }}%</td>
-                            <td>{{ $brg->diskon }}</td>
+                            <td>{{ $brg->diskon }}%</td>
                             <td>@rupiah($brg->harga_jual)</td>
                             <td>
                                 <a href="{{ route('barang.edit', $brg->id) }}" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>

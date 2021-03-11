@@ -18,10 +18,18 @@
                             <option value="{{ $stk->barang->id }}">{{ $stk->barang->nama_barang }}</option>
                             @endforeach
                         </select>
+
+                        @error('barang')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="qty">Qty</label>
                         <input type="number" name="qty" id="qty" class="form-control">
+
+                        @error('qty')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
 
                     <button type="submit" class="btn btn-sm btn-primary btn-tambah">Tambah</button>
@@ -81,12 +89,12 @@
                             @endforelse
                         </tbody>
 
-                        <tfoot>
+                        <!-- <tfoot>
                             <tr>
                                 <td colspan="5"></td>
                                 <td colspan="2">Total : @rupiah($total)</td>
                             </tr>
-                        </tfoot>
+                        </tfoot> -->
                     </table>
                 </div>
 
@@ -96,6 +104,10 @@
                         <div class="col-md-6">
                             <label for="total">Total Bayar</label>
                             <input type="number" name="total" id="total" value="{{ $total }}" class="form-control" readonly>
+
+                            @error('total')
+                            <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
 
                         <div class="col-md-6">
@@ -113,10 +125,18 @@
                         <div class="col-md-6">
                             <label for="bayar">Bayar</label>
                             <input type="number" name="bayar" id="bayar" class="form-control">
+
+                            @error('bayar')
+                            <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label for="kembalian">Kembalian</label>
                             <input type="number" name="kembalian" id="kembalian" class="form-control" readonly>
+
+                            @error('kembalian')
+                            <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
 
@@ -143,6 +163,26 @@
 
         var kembalian = bayar - total;
         $("#kembalian").val(kembalian)
+    });
+
+    $("#member").on('change', function() {
+        var id = $(this).val();
+
+        $.ajax({
+            method: 'GET',
+            url: '/member/get/' + id,
+            success: function(result) {
+                var total = parseInt($("#total").val());
+                var disc = parseInt(result.disc);
+
+                var totalDisc = (total * disc) / 100;
+
+                var all = Math.round(total - totalDisc);
+
+                $("#total").empty();
+                $("#total").val(all);
+            }
+        })
     })
 </script>
 @stop

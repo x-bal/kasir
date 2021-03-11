@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MemberRequest;
 use App\Member;
-use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
@@ -23,16 +23,12 @@ class MemberController extends Controller
         return view('member.create');
     }
 
-    public function store()
+    public function store(MemberRequest $request)
     {
-        request()->validate([
-            'nama_member' => 'required',
-            'jk' => 'required',
-            'telp' => 'required',
-            'alamat' => 'required',
-        ]);
+        $input = $request->all();
+        $input['disc'] = 5;
 
-        Member::create(request()->all());
+        Member::create($input);
         return redirect()->route('member.index')->with('success', 'Member berhasil ditambahkan');
     }
 
@@ -45,16 +41,9 @@ class MemberController extends Controller
         return view('member.edit', compact('member'));
     }
 
-    public function update(Request $request, Member $member)
+    public function update(MemberRequest $request, Member $member)
     {
-        request()->validate([
-            'nama_member' => 'required',
-            'jk' => 'required',
-            'telp' => 'required',
-            'alamat' => 'required',
-        ]);
-
-        $member->update(request()->all());
+        $member->update($request->all());
         return redirect()->route('member.index')->with('success', 'Member berhasil diupdate');
     }
 
@@ -63,5 +52,10 @@ class MemberController extends Controller
         $member->transaksi()->delete();
         $member->delete();
         return redirect()->route('member.index')->with('success', 'Member berhasil dihapus');
+    }
+
+    public function get(Member $member)
+    {
+        return response($member);
     }
 }

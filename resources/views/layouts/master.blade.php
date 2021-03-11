@@ -28,6 +28,7 @@
     <!-- Sweetalert -->
     <link rel="stylesheet" href="{{ asset('vendors') }}/sweetalert2/sweetalert2.min.css">
 
+
     <link rel="stylesheet" href="{{ asset('vendors') }}/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="{{ asset('vendors') }}/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('css') }}/app.css">
@@ -294,7 +295,7 @@
             var pokok = parseInt($('#harga_pokok').val());
 
             var total = ppn * pokok / 100;
-            var hargaJual = pokok + total;
+            var hargaJual = Math.round(pokok + total);
             $("#harga_jual").empty();
 
             $("#harga_jual").val(hargaJual);
@@ -309,31 +310,12 @@
             var totalHarga = pokok + harga;
             var total = diskon * totalHarga / 100;
 
-            var hargaJual = totalHarga - total;
+            var hargaJual = Math.round(totalHarga - total);
             $("#harga_jual").empty();
 
             $("#harga_jual").val(hargaJual);
         });
     </script>
-    <style type="text/css">
-        .preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 9999;
-            background-color: #fff;
-        }
-
-        .preloader .loading {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            font: 14px arial;
-        }
-    </style>
     @yield('footer')
     @if(session('success'))
     <script>

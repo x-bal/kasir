@@ -47,6 +47,15 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="disc">Disc</label>
+                        <input type="number" name="disc" id="disc" class="form-control" value="{{ $member->disc }}">
+
+                        @error('disc')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
                         <label for="alamat">Alamat</label>
                         <textarea name="alamat" id="alamat" rows="4" class="form-control">{{ $member->alamat }}</textarea>
 

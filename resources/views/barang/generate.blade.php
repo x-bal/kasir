@@ -31,6 +31,9 @@
                         <th>Distributor</th>
                         <th>Stok</th>
                         <th>Harga Pokok</th>
+                        <th>PPN</th>
+                        <th>Disc</th>
+                        <th>Harga Jual</th>
                     </tr>
                 </thead>
 
@@ -43,6 +46,9 @@
                         <td>{{ $brg->distributor->nama_distributor }}</td>
                         <td>{{ $brg->stok->jumlah }}</td>
                         <td>{{ $brg->harga_pokok }}</td>
+                        <td>{{ $brg->ppn }}%</td>
+                        <td>{{ $brg->diskon }}%</td>
+                        <td>{{ $brg->harga_jual }}</td>
                     </tr>
                     @endforeach
                 </tbody>

@@ -26,7 +26,8 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>INVOICE</th>
+                        <th>Tanggal</th>
+                        <th>Invoice</th>
                         <th>Kasir</th>
                         <th>Total</th>
                         <th>Bayar</th>
@@ -38,14 +39,29 @@
                     @foreach($transaksi as $trx)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $trx->created_at }}</td>
                         <td>{{ $trx->invoice }}</td>
                         <td>{{ $trx->user->nama }}</td>
                         <td>{{ $trx->total }}</td>
                         <td>{{ $trx->bayar }}</td>
                         <td>{{ $trx->kembalian }}</td>
                     </tr>
+
+                    @php
+                    $total = 0;
+                    $total += $trx->total;
+                    @endphp
                     @endforeach
                 </tbody>
+
+                <tfoot>
+                    <tr>
+                        <td colspan="5"></td>
+                        <td>Total : </td>
+                        <td>{{ $total }}</td>
+                    </tr>
+                </tfoot>
+
             </table>
         </div>
     </div>

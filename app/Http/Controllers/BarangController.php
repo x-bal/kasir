@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\{Barang, Distributor};
-
 use PDF;
+use App\{Barang, Distributor};
+use App\Http\Requests\BarangRequest;
 
 class BarangController extends Controller
 {
@@ -20,17 +20,10 @@ class BarangController extends Controller
         return view('barang.create', compact('distributor'));
     }
 
-    public function store()
+    public function store(BarangRequest $request)
     {
-        request()->validate([
-            'nama_barang' => 'required',
-            'distributor_id' => 'required',
-            'harga_pokok' => 'required',
-            'ppn' => 'required',
-        ]);
-
         $kode = 'BRG' . rand(1000, 9999);
-        $input = request()->all();
+        $input = $request->all();
         $input['kode_barang'] = $kode;
 
         Barang::create($input);
@@ -49,18 +42,9 @@ class BarangController extends Controller
         return view('barang.edit', compact('barang', 'distributor'));
     }
 
-    public function update(Barang $barang)
+    public function update(BarangRequest $request, Barang $barang)
     {
-        request()->validate([
-            'nama_barang' => 'required',
-            'distributor_id' => 'required',
-            'harga_pokok' => 'required',
-            'ppn' => 'required',
-        ]);
-
-        $input = request()->all();
-
-        $barang->update($input);
+        $barang->update($request->all());
 
         return redirect()->route('barang.index')->with('success', 'Barang berhasil diupdate');
     }
@@ -79,8 +63,20 @@ class BarangController extends Controller
 
     public function generate()
     {
-        $barang = Barang::with('stok', 'distributor')->whereYear('created_at', '=', request('tahun'))->whereMonth('created_at', '=', request('bulan'))->get();
-        $pdf = PDF::loadview('barang.generate', ['barang' => $barang]);
+        request()->validate(
+            [
+                'mulai' => 'required',
+                'sampai' => 'required',
+            ],
+            [
+                'mulai.required' => 'Pilih tanggal mulai',
+                'sampai.required' => 'Pilih tanggal sampai',
+            ]
+        );
+
+
+        $barang = Barang::with('stok', 'distributor')->whereBetween('created_at', [request('mulai'), request('sampai')])->get();
+        $pdf = PDF::loadview('barang.generate', ['barang' => $barang])->setPaper('a4', 'landscape');
 
         return $pdf->download('Laporan-Stok-Barang.pdf');
     }

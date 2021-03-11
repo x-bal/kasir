@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Level;
-use App\User;
-
 use PDF;
+use App\{User, Level};
+use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserUpdateRequest;
+
+
+
 
 
 class UserController extends Controller
@@ -22,19 +25,13 @@ class UserController extends Controller
         return view('users.create', compact('levels'));
     }
 
-    public function store()
+    public function store(UserRequest $request)
     {
-        request()->validate([
-            'username' => 'required|unique:users',
-            'nama' => 'required',
-            'jk' => 'required',
-            'alamat' => 'required',
-            'telp' => 'required',
-            'level_id' => 'required'
-        ]);
 
-        $input = request()->all();
+        $input = $request->all();
         $input['password'] = bcrypt('password');
+        $input['level_id'] = $request->input('level');
+
 
         User::create($input);
 
@@ -51,18 +48,10 @@ class UserController extends Controller
         return view('users.edit', compact('user', 'levels'));
     }
 
-    public function update(User $user)
+    public function update(UserUpdateRequest $request, User $user)
     {
-        request()->validate([
-            'username' => 'required|unique:users,username,' . $user->id,
-            'nama' => 'required',
-            'jk' => 'required',
-            'alamat' => 'required',
-            'telp' => 'required',
-            'level_id' => 'required'
-        ]);
-
-        $input = request()->all();
+        $input = $request->all();
+        $input['level_id'] = $request->input('level');
 
         $user->update($input);
 

@@ -17,6 +17,8 @@
                             <th>Jenis Kelamin</th>
                             <th>Alamat</th>
                             <th>Telp</th>
+                            <th>Disc</th>
+                            <th>Member Sejak</th>
                             <th>Opsi</th>
                         </tr>
                     </thead>
@@ -30,6 +32,8 @@
                             <td>{{ $member->jk }}</td>
                             <td>{{ $member->alamat }}</td>
                             <td>{{ $member->telp }}</td>
+                            <td>{{ $member->disc }}%</td>
+                            <td>{{ $member->created_at->diffForHumans() }}</td>
                             <td>
                                 <a href="{{ route('member.edit', $member->id) }}" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
                                 @if(auth()->user()->level->level == 'admin')

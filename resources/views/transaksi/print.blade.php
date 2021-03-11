@@ -12,88 +12,78 @@
 
 <body>
 
-    <div class="row">
-        <div class="col-md-4">
-            <table>
-                <tr>
-                    <td colspan="4">
-                        <h3 class="text-center" style="font-family: Arial;">Toko Qashir</h3>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                        <p class="text-center">JL.MANGUNREJA N0.150 RT.01 RW.01</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="4" class="text-dark">
-                        <hr>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="4"><br></td>
-                </tr>
-                <tr>
-                    <td>{{ $transaksi->created_at }}</td>
-                    <td></td>
-                    <td></td>
-                    <td> {{ $transaksi->invoice }}</td>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                        <hr>
-                    </td>
-                </tr>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <table>
+                    <tr>
+                        <td colspan="4">
+                            <h2 class="text-center" style="font-family: Arial; font-size: 28px; font-weight: bold;">Toko Qashir</h2>
+                            <p class="text-center" style="margin-top: -10px;">JL.MANGUNREJA N0.150 RT.01 RW.01</p>
+                            <hr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ $transaksi->created_at }}</td>
+                        <td></td>
+                        <td></td>
+                        <td> {{ $transaksi->invoice }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <hr>
+                        </td>
+                    </tr>
 
-                @foreach($transaksi->orders as $order)
-                <tr>
-                    <td>{{ $order->barang->nama_barang }}</td>
-                    <td class="text-center">{{ $order->qty}}</td>
-                    <td class="text-right">@rp($order->barang->harga_jual)</td>
-                    <td class="text-right">@rp($order->qty * $order->barang->harga_jual)</td>
-                </tr>
+                    @foreach($transaksi->orders as $order)
+                    <tr>
+                        <td>{{ $order->barang->nama_barang }}</td>
+                        <td class="text-center">{{ $order->qty}}</td>
+                        <td class="text-right">@rp($order->barang->harga_jual)</td>
+                        <td class="text-right">@rp($order->qty * $order->barang->harga_jual)</td>
+                    </tr>
 
-                @php
-                $total = 0;
-                $total += $order->qty * $order->barang->harga_jual;
-                @endphp
-                @endforeach
+                    @php
+                    $total = 0;
+                    $total += $order->qty * $order->barang->harga_jual;
+                    @endphp
+                    @endforeach
 
-                <tr>
-                    <td colspan="4">
-                        <hr>
-                    </td>
-                </tr>
+                    <tr>
+                        <td colspan="4">
+                            <hr>
+                        </td>
+                    </tr>
 
-                <tr>
-                    <td></td>
-                    <td class="text-right">Total</td>
-                    <td class="text-center">:</td>
-                    <td class="text-right"> @rp($total)</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td class="text-right">Tunai</td>
-                    <td class="text-center">:</td>
-                    <td class="text-right"> @rp($transaksi->bayar)</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td class="text-right">Kembali</td>
-                    <td class="text-center">:</td>
-                    <td class="text-right"> @rp($transaksi->kembalian)</td>
-                </tr>
-                <tr>
-                    <td colspan="4"><br><br><br></td>
-                </tr>
-                <tr>
-                    <td colspan="4" class="text-center">TERIMA KASIH TELAH BERBELANJA</td>
-                </tr>
+                    <tr>
+                        <td class="text-left">Total</td>
+                        <td></td>
+                        <td class="text-center">:</td>
+                        <td class="text-right"> @rp($total)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Tunai</td>
+                        <td></td>
+                        <td class="text-center">:</td>
+                        <td class="text-right"> @rp($transaksi->bayar)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Kembali</td>
+                        <td></td>
+                        <td class="text-center">:</td>
+                        <td class="text-right"> @rp($transaksi->kembalian)</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"><br><br><br></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-center">TERIMA KASIH TELAH BERBELANJA</td>
+                    </tr>
 
-            </table>
+                </table>
+            </div>
         </div>
     </div>
-
 
 
 

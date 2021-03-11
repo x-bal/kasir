@@ -26,10 +26,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', 'DashboardController@profile')->name('profile');
     // Route Update Profile
     Route::patch('/updateProfile/{user:id}', 'DashboardController@updateProfile')->name('update.profile');
+
     // Route Member
+    Route::get('/member/get/{member:id}', 'MemberController@get')->name('member.get');
     Route::resource('member', 'MemberController');
     // Route Transaksi
     Route::get('/transaksi/{transaksi:id}/print', 'TransaksiController@print')->name('transaksi.print');
+    Route::get('/transaksi/{transaksi:id}/struk', 'TransaksiController@struk')->name('transaksi.struk');
     Route::get('/transaksi/generate/{total}', 'TransaksiController@generate')->name('transaksi.generate');
     Route::post('/transaksi/add', 'TransaksiController@add')->name('transaksi.add');
     Route::get('laporan/transaksi', 'TransaksiController@laporan')->name('laporan.transaksi');

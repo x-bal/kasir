@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Distributor;
-use Illuminate\Http\Request;
+use App\Http\Requests\DistributorRequest;
 
 class DistributorController extends Controller
 {
@@ -18,17 +18,9 @@ class DistributorController extends Controller
         return view('distributor.create');
     }
 
-    public function store()
+    public function store(DistributorRequest $request)
     {
-        request()->validate([
-            'nama_distributor' => 'required',
-            'alamat' => 'required',
-            'telp' => 'required',
-        ]);
-
-        $input = request()->all();
-
-        Distributor::create($input);
+        Distributor::create($request->all());
 
         return redirect()->route('distributor.index')->with('success', 'Distributor berhasil ditambahkan');
     }
@@ -43,17 +35,9 @@ class DistributorController extends Controller
         return view('distributor.edit', compact('distributor'));
     }
 
-    public function update(Distributor $distributor)
+    public function update(DistributorRequest $request, Distributor $distributor)
     {
-        request()->validate([
-            'nama_distributor' => 'required',
-            'alamat' => 'required',
-            'telp' => 'required',
-        ]);
-
-        $input = request()->all();
-
-        $distributor->update($input);
+        $distributor->update($request->all());
 
         return redirect()->route('distributor.index')->with('success', 'Distributor berhasil diupdate');
     }

@@ -65,7 +65,7 @@
 
                     <div class="form-group">
                         <label for="level">Level</label>
-                        <select name="level_id" id="level_id" class="form-control">
+                        <select name="level" id="level" class="form-control">
                             @foreach($levels as $level)
                             @if($user->level_id == $level->id)
                             <option selected value="{{ $level->id }}">{{ $level->level }}</option>
@@ -75,7 +75,7 @@
                             @endforeach
                         </select>
 
-                        @error('level_id')
+                        @error('level')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>

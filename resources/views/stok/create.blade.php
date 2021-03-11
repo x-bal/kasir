@@ -12,14 +12,14 @@
 
                     <div class="form-group">
                         <label for="barang">Nama Barang</label>
-                        <select name="barang_id" id="distributor" class="choices form-select">
+                        <select name="barang" id="distributor" class="choices form-select">
                             <option disabled selected>-- Pilih Barang --</option>
                             @foreach($barang as $brg)
                             <option value="{{ $brg->id }}">{{ $brg->nama_barang }} ({{$brg->distributor->nama_distributor}})</option>
                             @endforeach
                         </select>
 
-                        @error('barang_id')
+                        @error('barang')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>

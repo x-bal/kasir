@@ -64,14 +64,14 @@
 
                     <div class="form-group">
                         <label for="level">Level</label>
-                        <select name="level_id" id="level_id" class="form-control">
+                        <select name="level" id="level_id" class="form-control">
                             <option disabled selected>-- Pilih Level --</option>
                             @foreach($levels as $level)
                             <option value="{{ $level->id }}">{{ $level->level }}</option>
                             @endforeach
                         </select>
 
-                        @error('level_id')
+                        @error('level')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>

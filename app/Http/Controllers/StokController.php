@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\{Stok, Barang};
-use Illuminate\Http\Request;
+use App\Http\Requests\StokRequest;
 
 class StokController extends Controller
 {
@@ -19,14 +19,9 @@ class StokController extends Controller
         return view('stok.create', compact('barang'));
     }
 
-    public function store(Request $request)
+    public function store(StokRequest $request)
     {
-        request()->validate([
-            'barang_id' => 'required',
-            'jumlah' => 'required',
-        ]);
-
-        $input = request()->except('_token');
+        $input = $request->except('_token');
         Stok::create($input);
 
         return redirect()->route('stok.index')->with('success', 'Stok berhasil ditambahkan');
@@ -43,14 +38,9 @@ class StokController extends Controller
         return view('stok.edit', compact('barang', 'stok'));
     }
 
-    public function update(Request $request, Stok $stok)
+    public function update(StokRequest $request, Stok $stok)
     {
-        request()->validate([
-            'barang_id' => 'required',
-            'jumlah' => 'required',
-        ]);
-
-        $stok->update(request()->all());
+        $stok->update($request->all());
         return redirect()->route('stok.index')->with('success', 'Stok berhasil diupdate');
     }
 
