@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MemberRequest;
 use App\Member;
+use App\Transaksi;
 
 class MemberController extends Controller
 {
@@ -57,5 +58,12 @@ class MemberController extends Controller
     public function get(Member $member)
     {
         return response($member);
+    }
+
+    public function history(Member $member)
+    {
+        $history = Transaksi::with('member', 'orders')->where('member_id', $member->id)->latest()->get();
+
+        return view('member.history', compact('history', 'member'));
     }
 }

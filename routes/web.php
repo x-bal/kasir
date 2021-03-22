@@ -47,9 +47,13 @@ Route::middleware('auth')->group(function () {
         Route::get('users/generate', 'UserController@generate')->name('users.generate');
         Route::resource('users', 'UserController');
 
+        // Route Member
+        Route::get('member/history/{member:id}', 'MemberController@history')->name('member.history');
+
         // Route Barang
         Route::get('laporan/barang', 'BarangController@laporan')->name('laporan.barang');
         Route::post('barang/generate', 'BarangController@generate')->name('barang.generate');
+        Route::post('barang/eskport', 'BarangController@export')->name('barang.eksport');
         Route::resource('barang', 'BarangController');
 
         // Route Distributor

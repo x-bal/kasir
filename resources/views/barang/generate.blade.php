@@ -15,43 +15,45 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="text-center" style="font-family: Arial, Helvetica, sans-serif;">Laporan Stok Barang</h2>
+            <h3 class="text-center" style="font-family: Arial;">Laporan Stok Barang</h3>
+
+            <div class="mt-5">
+                <b>Periode : </b><br>
+                <b>Mulai : </b> {{ $mulai }} <br>
+                <b>Sampai : </b> {{ $sampai }} <br>
+            </div>
             <hr>
         </div>
     </div>
 
     <div class="row">
         <div class="col-lg-12">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Kode Barang</th>
-                        <th>Nama Barang</th>
-                        <th>Distributor</th>
-                        <th>Stok</th>
-                        <th>Harga Pokok</th>
-                        <th>PPN</th>
-                        <th>Disc</th>
-                        <th>Harga Jual</th>
-                    </tr>
-                </thead>
+            <table class="table table-bordered table-striped">
+                <tr class="text-center" style="font-size: 15px;">
+                    <th width="9">No.</th>
+                    <th width="100">Kode Barang</th>
+                    <th width="170">Nama Barang</th>
+                    <th>Distributor</th>
+                    <th width="9">Stok</th>
+                    <th>Harga Pokok</th>
+                    <th width="10">PPN</th>
+                    <th width="10">Disc</th>
+                    <th>Harga Jual</th>
+                </tr>
 
-                <tbody>
-                    @foreach($barang as $brg)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $brg->kode_barang }}</td>
-                        <td>{{ $brg->nama_barang }}</td>
-                        <td>{{ $brg->distributor->nama_distributor }}</td>
-                        <td>{{ $brg->stok->jumlah }}</td>
-                        <td>{{ $brg->harga_pokok }}</td>
-                        <td>{{ $brg->ppn }}%</td>
-                        <td>{{ $brg->diskon }}%</td>
-                        <td>{{ $brg->harga_jual }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
+                @foreach($barang as $brg)
+                <tr style="font-size: 14px;">
+                    <td class="text-center">{{ $loop->iteration }}</td>
+                    <td>{{ $brg->kode_barang }}</td>
+                    <td>{{ $brg->nama_barang }}</td>
+                    <td class="text-center">{{ $brg->distributor->nama_distributor }}</td>
+                    <td class="text-center">{{ $brg->stok->jumlah }}</td>
+                    <td class="text-center">@rupiah($brg->harga_pokok )</td>
+                    <td class="text-center">{{ $brg->ppn }}%</td>
+                    <td class="text-center">{{ $brg->diskon }}%</td>
+                    <td class="text-center">@rupiah($brg->harga_jual)</td>
+                </tr>
+                @endforeach
             </table>
         </div>
     </div>

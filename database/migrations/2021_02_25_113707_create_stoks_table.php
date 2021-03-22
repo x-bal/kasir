@@ -15,7 +15,7 @@ class CreateStoksTable extends Migration
     {
         Schema::create('stok', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('barang_id');
+            $table->foreignId('barang_id')->constrained('barang');
             $table->integer('jumlah');
             $table->timestamps();
         });

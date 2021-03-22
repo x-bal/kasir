@@ -19,6 +19,7 @@ class CreateMembersTable extends Migration
             $table->string('jk');
             $table->string('telp');
             $table->text('alamat');
+            $table->integer('disc')->nullable();
             $table->timestamps();
         });
     }

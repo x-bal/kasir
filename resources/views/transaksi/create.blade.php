@@ -15,7 +15,7 @@
                         <select name="barang" id="barang" class="form-control select2">
                             <option disabled selected>-- Pilih barang --</option>
                             @foreach($stok as $stk)
-                            <option value="{{ $stk->barang->id }}">{{ $stk->barang->nama_barang }}</option>
+                            <option value="{{ $stk->barang->id }}">{{ $stk->barang->kode_barang }} | {{ $stk->barang->nama_barang }}</option>
                             @endforeach
                         </select>
 
@@ -88,13 +88,6 @@
                             </tr>
                             @endforelse
                         </tbody>
-
-                        <!-- <tfoot>
-                            <tr>
-                                <td colspan="5"></td>
-                                <td colspan="2">Total : @rupiah($total)</td>
-                            </tr>
-                        </tfoot> -->
                     </table>
                 </div>
 
@@ -184,5 +177,14 @@
             }
         })
     })
+
+    const select = $('.select2').select2();
+
+    if ($('#barang').hasClass("select2-hidden-accessible")) {
+        $('#barang').select2('open');
+    }
+    $("#barang").on("focus", function() {
+        $example.select2("open");
+    });
 </script>
 @stop

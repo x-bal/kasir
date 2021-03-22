@@ -111,7 +111,7 @@
                                 <span>Entri Transaksi</span>
                             </a>
                         </li>
-                        @endif
+                        @else
 
                         <li class="sidebar-item {{ Request::segment(1) == 'laporan' ? 'active' : '' }}  has-sub">
                             <a href="#" class="sidebar-link">
@@ -127,6 +127,7 @@
                                 </li>
                             </ul>
                         </li>
+                        @endif
 
 
 
@@ -254,12 +255,6 @@
             });
 
             new $.fn.dataTable.FixedHeader(table);
-        });
-
-        $(document).ready(function() {
-            $('.select2').select2({
-                width: 'resolve'
-            });
         });
     </script>
 

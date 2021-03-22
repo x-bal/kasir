@@ -26,7 +26,7 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-file"></i> Generate</button>
+                    <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-download"></i> Download</button>
                 </form>
             </div>
         </div>

@@ -123,7 +123,8 @@ class TransaksiController extends Controller
 
         $transaksi = Transaksi::with('user')->whereBetween('created_at', [request('mulai'), request('sampai')])->get();
 
-        $pdf = PDF::loadview('transaksi.generate', ['transaksi' => $transaksi])->setPaper('a4', 'landscape');
+        $pdf = PDF::loadview('transaksi.generate', ['transaksi' => $transaksi, 'mulai' => request('mulai'), 'sampai' => request('sampai')])->setPaper('a4', 'landscape');
+
         return $pdf->download('Laporan-Transaksi.pdf');
     }
 }

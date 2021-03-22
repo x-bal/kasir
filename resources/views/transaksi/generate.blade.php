@@ -15,52 +15,49 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="text-center" style="font-family: Arial, Helvetica, sans-serif;">Laporan Transaksi</h2>
+            <h3 class="text-center" style="font-family: Arial;">Laporan Transaksi</h3>
+
+            <div class="mt-5">
+                <b>Periode : </b>{{ $mulai }} s.d {{$sampai}}
+            </div>
             <hr>
         </div>
     </div>
 
     <div class="row">
         <div class="col-lg-12">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Tanggal</th>
-                        <th>Invoice</th>
-                        <th>Kasir</th>
-                        <th>Total</th>
-                        <th>Bayar</th>
-                        <th>Kembalian</th>
-                    </tr>
-                </thead>
+            <table class="table table-bordered table-striped">
+                <tr class="text-center" style="font-size: 15px;">
+                    <th width="10">No</th>
+                    <th width="100">Tanggal</th>
+                    <th width="100">Invoice</th>
+                    <th>Kasir</th>
+                    <th>Total</th>
+                    <th>Bayar</th>
+                    <th>Kembalian</th>
+                </tr>
 
-                <tbody>
-                    @foreach($transaksi as $trx)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $trx->created_at }}</td>
-                        <td>{{ $trx->invoice }}</td>
-                        <td>{{ $trx->user->nama }}</td>
-                        <td>{{ $trx->total }}</td>
-                        <td>{{ $trx->bayar }}</td>
-                        <td>{{ $trx->kembalian }}</td>
-                    </tr>
+                @foreach($transaksi as $trx)
+                <tr style="font-size: 14px;">
+                    <td class="text-center">{{ $loop->iteration }}</td>
+                    <td>{{ $trx->created_at }}</td>
+                    <td>{{ $trx->invoice }}</td>
+                    <td>{{ $trx->user->nama }}</td>
+                    <td class="text-center">@rupiah($trx->total)</td>
+                    <td class="text-center">@rupiah($trx->bayar)</td>
+                    <td class="text-center">@rupiah($trx->kembalian)</td>
+                </tr>
+                @php
+                $total = 0;
+                $total += $trx->total;
+                @endphp
+                @endforeach
 
-                    @php
-                    $total = 0;
-                    $total += $trx->total;
-                    @endphp
-                    @endforeach
-                </tbody>
-
-                <tfoot>
-                    <tr>
-                        <td colspan="5"></td>
-                        <td>Total : </td>
-                        <td>{{ $total }}</td>
-                    </tr>
-                </tfoot>
+                <tr class="text-center" style="font-size: 15px;">
+                    <td colspan="4"></td>
+                    <td colspan="2">Total Transaksi: </td>
+                    <td>@rupiah($total)</td>
+                </tr>
 
             </table>
         </div>

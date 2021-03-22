@@ -37,7 +37,8 @@
                             <td>
                                 <a href="{{ route('member.edit', $member->id) }}" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
                                 @if(auth()->user()->level->level == 'admin')
-                                <form action="{{ route('member.destroy', $member->id) }}" method="post" style="display: inline;" class="delete-form">
+                                <a href="{{ route('member.history', $member->id) }}" class="btn btn-sm btn-info"><i class="fas fa-credit-card"></i></a>
+                                <form action="{{ route('member.destroy', $member->id) }}" method="post" style="display: inline-block;" class="delete-form">
                                     @method('DELETE')
                                     @csrf
                                     <button type="submit" class="btn btn-sm btn-danger btn-delete"><i class="fas fa-trash"></i></button>

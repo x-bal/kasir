@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use PDF;
+use Excel;
 use App\{Barang, Distributor};
+use App\Exports\BarangEksport;
 use App\Http\Requests\BarangRequest;
 
 class BarangController extends Controller
@@ -76,8 +78,26 @@ class BarangController extends Controller
 
 
         $barang = Barang::with('stok', 'distributor')->whereBetween('created_at', [request('mulai'), request('sampai')])->get();
-        $pdf = PDF::loadview('barang.generate', ['barang' => $barang])->setPaper('a4', 'landscape');
+        $pdf = PDF::loadview('barang.generate', ['barang' => $barang, 'mulai' => request('mulai'), 'sampai' => request('sampai')])->setPaper('a4', 'landscape');
 
         return $pdf->download('Laporan-Stok-Barang.pdf');
+    }
+
+    public function export()
+    {
+        request()->validate(
+            [
+                'mulai' => 'required',
+                'sampai' => 'required',
+            ],
+            [
+                'mulai.required' => 'Pilih tanggal mulai',
+                'sampai.required' => 'Pilih tanggal sampai',
+            ]
+        );
+
+        $barang = Barang::with('stok', 'distributor')->whereBetween('created_at', [request('mulai'), request('sampai')])->get();
+
+        return Excel::download(new BarangEksport('barang.generate', $barang), 'laporan-barang.xlsx');
     }
 }

@@ -7,7 +7,7 @@
             <div class="card-header">Laporan Stok Barang</div>
 
             <div class="card-body">
-                <form action="{{ route('barang.generate') }}" method="post">
+                <form action="{{route('barang.generate')}}" method="post" id="form">
                     @csrf
                     <div class="form-group">
                         <label for="mulai">Mulai</label>
@@ -26,7 +26,7 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-file"></i> Generate</button>
+                    <button type="submit" class="btn btn-sm btn-primary" id="pdf"><i class="fas fa-download"></i> Download</button>
                 </form>
             </div>
         </div>
