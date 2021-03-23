@@ -53,7 +53,9 @@ class TransaksiController extends Controller
             return back()->with('success', 'Transaksi Berhasil');
         }
 
-        return view('transaksi.struk', compact('transaksi'));
+        $pdf = PDF::loadview('transaksi.print', ['transaksi' => $transaksi]);
+        return $pdf->download('struk-pdf.pdf');
+        // return view('transaksi.struk', compact('transaksi'));
         // return redirect()->route('transaksi.index')->with('success', 'Transaksi Berhasil');
     }
 
@@ -95,7 +97,7 @@ class TransaksiController extends Controller
     {
         // return view('transaksi.print', compact('transaksi'));
         // PDF::setOptions(['dpi' => 150, 'defaultFont' => 'Arial']);
-        $pdf = PDF::loadview('transaksi.print', ['transaksi' => $transaksi]);
+        $pdf = PDF::loadview('transaksi.print', ['transaksi' => $transaksi])->setPaper('a4', 'potrait');
         return $pdf->download('struk-pdf.pdf');
 
         // return redirect()->route('transaksi.index')->with('success', 'Transaksi Berhasil');
@@ -121,9 +123,10 @@ class TransaksiController extends Controller
             'sampai.required' => 'Pilih tanggal sampai',
         ]);
 
-        $transaksi = Transaksi::with('user')->whereBetween('created_at', [request('mulai'), request('sampai')])->get();
 
-        $pdf = PDF::loadview('transaksi.generate', ['transaksi' => $transaksi, 'mulai' => request('mulai'), 'sampai' => request('sampai')])->setPaper('a4', 'landscape');
+        $transaksi = Transaksi::with('user')->where('created_at', '>=', request('mulai'))->where('created_at', '<=', request('sampai'))->get();
+
+        $pdf = PDF::loadview('transaksi.generate', ['transaksi' => $transaksi, 'mulai' => request('mulai'), 'sampai' => request('sampai'), 'total' => 0])->setPaper('a4', 'landscape');
 
         return $pdf->download('Laporan-Transaksi.pdf');
     }

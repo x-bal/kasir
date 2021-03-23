@@ -61,5 +61,8 @@ Route::middleware('auth')->group(function () {
 
         // Route Stok
         Route::resource('stok', 'StokController');
+
+        // Route Transaksi
+        Route::patch('order/updateTransaksi/{transaksi:id}', 'OrderController@updateTransaksi')->name('order.updateTransaksi');
     });
 });

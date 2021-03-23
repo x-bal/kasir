@@ -27,6 +27,7 @@ class BarangController extends Controller
         $kode = 'BRG' . rand(1000, 9999);
         $input = $request->all();
         $input['kode_barang'] = $kode;
+        $input['distributor_id'] = $request->input('distributor');
 
         Barang::create($input);
 

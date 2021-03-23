@@ -15,37 +15,33 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="text-center" style="font-family: Arial, Helvetica, sans-serif;">Laporan Data Karyawan</h2>
+            <h3 class="text-center" style="font-family: Arial">Laporan Data Karyawan</h3>
             <hr>
         </div>
     </div>
 
     <div class="row">
         <div class="col-lg-12">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Username</th>
-                        <th>Nama</th>
-                        <th>Alamat</th>
-                        <th>JK</th>
-                        <th>Telp</th>
-                    </tr>
-                </thead>
+            <table class="table table-bordered table-striped">
+                <tr style="font-size: 15px;" class="text-center">
+                    <th width="10">No</th>
+                    <th width="100">Username</th>
+                    <th width="200">Nama</th>
+                    <th>Alamat</th>
+                    <th>JK</th>
+                    <th>Telp</th>
+                </tr>
 
-                <tbody>
-                    @foreach($users as $user)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $user->username }}</td>
-                        <td>{{ $user->nama }}</td>
-                        <td>{{ $user->alamat }}</td>
-                        <td>{{ $user->jk }}</td>
-                        <td>{{ $user->telp }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
+                @foreach($users as $user)
+                <tr style="font-size: 14px;">
+                    <td class="text-center">{{ $loop->iteration }}</td>
+                    <td>{{ $user->username }}</td>
+                    <td>{{ $user->nama }}</td>
+                    <td class="text-center">{{ $user->alamat }}</td>
+                    <td class="text-center">{{ $user->jk }}</td>
+                    <td class="text-center">{{ $user->telp }}</td>
+                </tr>
+                @endforeach
             </table>
         </div>
     </div>

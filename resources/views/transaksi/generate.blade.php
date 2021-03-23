@@ -48,7 +48,6 @@
                     <td class="text-center">@rupiah($trx->kembalian)</td>
                 </tr>
                 @php
-                $total = 0;
                 $total += $trx->total;
                 @endphp
                 @endforeach

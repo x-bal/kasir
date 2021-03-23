@@ -22,6 +22,7 @@ class StokController extends Controller
     public function store(StokRequest $request)
     {
         $input = $request->except('_token');
+        $input['barang_id'] = $request->input('barang');
         Stok::create($input);
 
         return redirect()->route('stok.index')->with('success', 'Stok berhasil ditambahkan');

@@ -67,7 +67,8 @@ class UserController extends Controller
     public function generate()
     {
         $users = User::where('level_id', 2)->get();
-        $pdf = PDF::loadview('users.generate', ['users' => $users]);
+        $pdf = PDF::loadview('users.generate', ['users' => $users])->setPaper('a4', 'landscape');
+
 
         return $pdf->download('Data-Karyawan.pdf');
     }

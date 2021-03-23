@@ -1,13 +1,14 @@
-@extends('layouts.master', ['title' => 'Tambah Transaksi'])
+@extends('layouts.master', ['title' => 'Edit Transaksi'])
 
 @section('content')
 <div class="row">
     <div class="col-md-10">
         <div class="card">
-            <div class="card-header">Tambah Transaksi</div>
+            <div class="card-header">Edit Transaksi</div>
 
             <div class="card-body">
-                <form action="{{ route('order.store') }}" method="post">
+                <form action="{{ route('order.updateTransaksi', $transaksi->id) }}" method="post">
+                    @method('PATCH')
                     @csrf
                     <div class="form-group">
                     </div>
@@ -28,7 +29,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-sm btn-primary btn-tambah">Tambah</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Tambah</button>
                 </form>
 
             </div>
@@ -123,11 +124,11 @@
                         </div>
                         <div class="col-md-6">
                             <label for="kembalian">Kembalian</label>
-                            <input type="number" name="kembalian" id="kembalian" class="form-control" readonly value="{{ $transaksi->kembalian }}">
+                            <input type="number" name="kembalian" id="kembalian" class="form-control" readonly value="">
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-sm btn-primary">Transaksi</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Update</button>
                 </form>
             </div>
         </div>
@@ -140,6 +141,14 @@
 
 <script>
     $("#bayar").on('keyup', function() {
+        var bayar = parseInt($("#bayar").val());
+        var total = parseInt($("#total").val());
+
+        var kembalian = bayar - total;
+        $("#kembalian").val(kembalian)
+    })
+
+    $(document).ready(function() {
         var bayar = parseInt($("#bayar").val());
         var total = parseInt($("#total").val());
 

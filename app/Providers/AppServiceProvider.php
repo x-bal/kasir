@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -31,5 +32,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('rp', function ($expression) {
             return "<?php echo number_format($expression, 0, ',', '.'); ?>";
         });
+
+        config(['app.locale' => 'id']);
+        Carbon::setLocale('id');
     }
 }

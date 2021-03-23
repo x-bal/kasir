@@ -26,6 +26,24 @@ class OrderController extends Controller
         return back();
     }
 
+    public function updateTransaksi(Transaksi $transaksi)
+    {
+        // $input = request()->all();
+        $input['barang_id'] = request('barang');
+        $input['qty'] = request('qty');
+
+        $orders = Order::where('transaksi_id', $transaksi->id)->first();
+        if ($orders->transaksi_id == $transaksi->id) {
+            Order::create([
+                'transaksi_id' => $transaksi->id,
+                'barang_id' => request('barang'),
+                'qty' => request('qty'),
+            ]);
+        }
+
+        return back();
+    }
+
     public function destroy(Order $order)
     {
         $order->delete();
