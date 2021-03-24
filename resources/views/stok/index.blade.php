@@ -7,12 +7,13 @@
             <div class="card-header">Data Stok</div>
 
             <div class="card-body">
-                <a href="{{ route('stok.create') }}" class="btn btn-sm btn-primary mb-3">Tambah Stok</a>
+                <!-- <a href="{{ route('stok.create') }}" class="btn btn-sm btn-primary mb-3">Tambah Stok</a> -->
                 <table class="table table-bordered table-striped" id="table">
                     <thead>
                         <tr>
                             <th></th>
                             <th>No</th>
+                            <th>Tanggal</th>
                             <th>Kode Barang</th>
                             <th>Nama Barang</th>
                             <th>Distributor</th>
@@ -26,6 +27,7 @@
                         <tr>
                             <td></td>
                             <td>{{ $loop->iteration }}</td>
+                            <td>{{ $stok->created_at }}</td>
                             <td>{{ $stok->barang->kode_barang }}</td>
                             <td>{{ $stok->barang->nama_barang }}</td>
                             <td>{{ $stok->barang->distributor->nama_distributor }}</td>

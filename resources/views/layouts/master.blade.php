@@ -105,10 +105,17 @@
                         @endif
 
                         @if(auth()->user()->level->level == 'karyawan')
-                        <li class="sidebar-item {{ Request::segment(1) == 'transaksi' ? 'active' : '' }}">
+                        <li class="sidebar-item {{ Request::segment(1) == 'transaksi' && Request::segment(2) == 'create' ? 'active' : '' }}">
                             <a href="{{ route('transaksi.create') }}" class='sidebar-link'>
                                 <i class="far fa-credit-card"></i>
                                 <span>Entri Transaksi</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item {{ Request::segment(1) == 'transaksi' && Request::segment(2) == '' ? 'active' : '' }}">
+                            <a href="{{ route('transaksi.index') }}" class='sidebar-link'>
+                                <i class="fas fa-cash-register"></i>
+                                <span>History Transaksi</span>
                             </a>
                         </li>
                         @else

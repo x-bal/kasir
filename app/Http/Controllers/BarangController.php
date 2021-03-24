@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use PDF;
 use Excel;
-use App\{Barang, Distributor};
+use App\{Barang, Distributor, Stok};
 use App\Exports\BarangEksport;
 use App\Http\Requests\BarangRequest;
 
@@ -29,7 +29,12 @@ class BarangController extends Controller
         $input['kode_barang'] = $kode;
         $input['distributor_id'] = $request->input('distributor');
 
-        Barang::create($input);
+
+        $barang = Barang::create($input);
+        $stok['jumlah'] = $request->input('stok');
+        $stok['barang_id'] = $barang->id;
+
+        Stok::create($stok);
 
         return redirect()->route('barang.index')->with('success', 'Barang berhasil ditambahkan');
     }
@@ -42,12 +47,15 @@ class BarangController extends Controller
     public function edit(Barang $barang)
     {
         $distributor = Distributor::all();
-        return view('barang.edit', compact('barang', 'distributor'));
+        return view('barang.edit', compact('barang', 'distributor',));
     }
 
     public function update(BarangRequest $request, Barang $barang)
     {
         $barang->update($request->all());
+        $barang->stok()->update([
+            'jumlah' => $request->input('stok')
+        ]);
 
         return redirect()->route('barang.index')->with('success', 'Barang berhasil diupdate');
     }

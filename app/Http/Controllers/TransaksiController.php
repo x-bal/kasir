@@ -11,7 +11,7 @@ class TransaksiController extends Controller
     public function __construct()
     {
         $this->middleware('admin', ['except' => [
-            'create', 'store'
+            'create', 'store', 'index', 'show'
         ]]);
     }
 

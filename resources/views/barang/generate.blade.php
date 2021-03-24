@@ -18,9 +18,7 @@
             <h3 class="text-center" style="font-family: Arial;">Laporan Stok Barang</h3>
 
             <div class="mt-5">
-                <b>Periode : </b><br>
-                <b>Mulai : </b> {{ $mulai }} <br>
-                <b>Sampai : </b> {{ $sampai }} <br>
+                <b>Periode : </b> {{ $mulai }} s.d {{ $sampai }}<br>
             </div>
             <hr>
         </div>

@@ -28,7 +28,8 @@ class BarangRequest extends FormRequest
             'distributor' => 'required',
             'harga_pokok' => 'required',
             'ppn' => 'required',
-            'harga_jual' => 'required'
+            'harga_jual' => 'required',
+            'stok' => 'required',
         ];
     }
 
@@ -40,6 +41,7 @@ class BarangRequest extends FormRequest
             'harga_pokok.required' => 'Harga pokok tidak boleh kosong',
             'ppn.required' => 'PPN tidak boleh kosong',
             'harga_jual.required' => 'Harga Jual tidak boleh kosong',
+            'stok.required' => 'Harga Jual tidak boleh kosong',
         ];
     }
 }

@@ -22,14 +22,17 @@ Auth::routes();
 Route::middleware('auth')->group(function () {
     // Route Dashboard
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
     // Route Profile
     Route::get('/profile', 'DashboardController@profile')->name('profile');
+
     // Route Update Profile
     Route::patch('/updateProfile/{user:id}', 'DashboardController@updateProfile')->name('update.profile');
 
     // Route Member
     Route::get('/member/get/{member:id}', 'MemberController@get')->name('member.get');
     Route::resource('member', 'MemberController');
+
     // Route Transaksi
     Route::get('/transaksi/{transaksi:id}/print', 'TransaksiController@print')->name('transaksi.print');
     Route::get('/transaksi/{transaksi:id}/struk', 'TransaksiController@struk')->name('transaksi.struk');
@@ -54,6 +57,7 @@ Route::middleware('auth')->group(function () {
         Route::get('laporan/barang', 'BarangController@laporan')->name('laporan.barang');
         Route::post('barang/generate', 'BarangController@generate')->name('barang.generate');
         Route::post('barang/eskport', 'BarangController@export')->name('barang.eksport');
+        // Route::patch('barang/{barang:id}/update', 'BarangController@update')->name('barang.updatebarang');
         Route::resource('barang', 'BarangController');
 
         // Route Distributor
