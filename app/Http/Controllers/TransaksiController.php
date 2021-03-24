@@ -11,7 +11,7 @@ class TransaksiController extends Controller
     public function __construct()
     {
         $this->middleware('admin', ['except' => [
-            'create', 'store', 'index', 'show'
+            'create', 'store', 'index', 'show', 'print', 'struk'
         ]]);
     }
 
@@ -49,9 +49,7 @@ class TransaksiController extends Controller
         $input['invoice'] = $inv;
 
         $transaksi = Transaksi::create($input);
-        if (auth()->user()->level->level == 'karyawan') {
-            return back()->with('success', 'Transaksi Berhasil');
-        }
+
 
         $pdf = PDF::loadview('transaksi.print', ['transaksi' => $transaksi]);
         return $pdf->download('struk-pdf.pdf');
