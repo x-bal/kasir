@@ -35,7 +35,7 @@
                             <td>
                                 <a href="{{ route('transaksi.show', $trx->id) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
                                 @if(auth()->user()->level->level == 'admin')
-                                <a href="{{ route('transaksi.print', $trx->id) }}" class="btn btn-sm btn-secondary"><i class="fas fa-file-pdf"></i></a>
+                                <a href="{{ route('transaksi.print', $trx->id) }}" class="btn btn-sm btn-secondary"><i class="fas fa-print"></i></a>
                                 <a href="{{ route('transaksi.edit', $trx->id) }}" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
                                 <form action="{{ route('transaksi.destroy', $trx->id) }}" method="post" style="display: inline;" class="delete-form">
                                     @method('DELETE')

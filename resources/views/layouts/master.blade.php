@@ -42,7 +42,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="{{ route('dashboard') }}"><img src="{{ asset('images') }}/logo/logo.png" alt="Logo" srcset=""></a>
+                            <a href="{{ route('dashboard') }}"><img src="{{ asset('images') }}/logo/MyCash.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class='sidebar-hide d-xl-none d-block'><i class='bi bi-x bi-middle'></i></a>
@@ -107,14 +107,14 @@
                         @if(auth()->user()->level->level == 'karyawan')
                         <li class="sidebar-item {{ Request::segment(1) == 'transaksi' && Request::segment(2) == 'create' ? 'active' : '' }}">
                             <a href="{{ route('transaksi.create') }}" class='sidebar-link'>
-                                <i class="far fa-credit-card"></i>
+                                <i class="fas fa-cash-register"></i>
                                 <span>Entri Transaksi</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item {{ Request::segment(1) == 'transaksi' && Request::segment(2) == '' ? 'active' : '' }}">
                             <a href="{{ route('transaksi.index') }}" class='sidebar-link'>
-                                <i class="fas fa-cash-register"></i>
+                                <i class="fas fa-credit-card"></i>
                                 <span>History Transaksi</span>
                             </a>
                         </li>

@@ -16,12 +16,17 @@ class OrderController extends Controller
         }
 
         $id = $transaksi + 1;
-
-        Order::create([
+        $attr = [
             'transaksi_id' => $id,
             'barang_id' => $request->input('barang'),
-            'qty' => $request->input('qty'),
-        ]);
+        ];
+        if (request('qty') == null) {
+            $attr['qty'] = 1;
+        } else {
+            $attr['qty'] = request('qty');
+        }
+
+        Order::create($attr);
 
         return back();
     }

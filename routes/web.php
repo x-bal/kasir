@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('transaksi', 'TransaksiController');
 
     Route::resource('order', 'OrderController');
+    Route::post('/order/insert', 'OrderController@insert');
 
     Route::middleware('admin')->group(function () {
         // Route Users

@@ -14,6 +14,111 @@
 
     <div class="container">
         <div class="row justify-content-center">
+            <div class="col-md-6 mt-5">
+                <table>
+                    <tr>
+                        <td colspan="5"><b>Nama Toko</b> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            Jl. Mangunreja No. 01
+                        </td>
+                        <td colspan="3" class="text-right">
+                            {{ $transaksi->invoice }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            Telp. 0897654763742
+                        </td>
+                        <td colspan="3" class="text-right">
+                            {{ $transaksi->created_at }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">-----------------------------------------------------------------------------------------------------</td>
+                    </tr>
+
+                    <tr>
+                        <td>Nama Barang</td>
+                        <td class="text-center">Qty</td>
+                        <td class="text-center">Disc</td>
+                        <td class="text-right">Harga</td>
+                        <td class="text-right">Total</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">-----------------------------------------------------------------------------------------------------</td>
+                    </tr>
+                    @php
+                    $total = 0;
+                    $item = 0;
+                    @endphp
+                    @foreach($transaksi->orders as $order)
+                    <tr>
+                        <td>{{ $order->barang->nama_barang }}</td>
+                        <td class="text-center">{{ $order->qty}}</td>
+                        <td class="text-center">{{ $order->diskon ? $order->harga_pokok * $order->diskon / 100 : 0 }}</td>
+                        <td class="text-right">@rp($order->barang->harga_jual)</td>
+                        <td class="text-right">@rp($order->qty * $order->barang->harga_jual)</td>
+                    </tr>
+
+                    @php
+                    $total += $order->qty * $order->barang->harga_jual;
+                    $item += $order->qty
+                    @endphp
+                    @endforeach
+
+                    <tr>
+                        <td colspan="5">-----------------------------------------------------------------------------------------------------</td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-left">Total</td>
+                        <td>{{ $item }} item(s)</td>
+                        <td class="text-center">:</td>
+                        <td></td>
+                        <td class="text-right">Rp. @rp($total)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Tunai</td>
+                        <td></td>
+                        <td class="text-center">:</td>
+                        <td></td>
+                        <td class="text-right">Rp. @rp($transaksi->bayar)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Kembali</td>
+                        <td></td>
+                        <td class="text-center">:</td>
+                        <td></td>
+                        <td class="text-right">Rp. @rp($transaksi->kembalian)</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">-----------------------------------------------------------------------------------------------------</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Kasir</td>
+                        <td></td>
+                        <td class="text-center">:</td>
+                        <td></td>
+                        <td class="text-right">{{ $transaksi->user->nama }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">-----------------------------------------------------------------------------------------------------</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            <p class="mt-5">
+                                Terima Kasih Atas Kunjungan Anda <br>
+                                Barang yang sudah dibeli tidak dapat ditukar atau dikembalikan <br>
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <!-- <div class="row justify-content-center">
             <div class="col-lg-12">
                 <table>
                     <tr>
@@ -82,7 +187,7 @@
 
                 </table>
             </div>
-        </div>
+        </div> -->
     </div>
 
 

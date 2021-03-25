@@ -25,7 +25,6 @@ class OrderRequest extends FormRequest
     {
         return [
             'barang' => 'required',
-            'qty' => 'required'
         ];
     }
 
@@ -33,7 +32,6 @@ class OrderRequest extends FormRequest
     {
         return [
             'barang.required' => 'Pilih barang',
-            'qty.required' => 'Qty tidak boleh kosong',
         ];
     }
 }

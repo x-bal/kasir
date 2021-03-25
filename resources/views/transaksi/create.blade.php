@@ -26,10 +26,6 @@
                     <div class="form-group">
                         <label for="qty">Qty</label>
                         <input type="number" name="qty" id="qty" class="form-control">
-
-                        @error('qty')
-                        <small class="text-danger">{{ $message }}</small>
-                        @enderror
                     </div>
 
                     <button type="submit" class="btn btn-sm btn-primary btn-tambah">Tambah</button>
@@ -67,7 +63,7 @@
                                 <td>{{ $order->barang->nama_barang }}</td>
                                 <td>{{ $order->qty }}</td>
                                 <td>@rupiah($order->barang->harga_jual)</td>
-                                <td>{{ $order->barang->diskon }}</td>
+                                <td>{{ $order->barang->diskon }}%</td>
                                 <td>@rupiah($order->qty * $order->barang->harga_jual)</td>
                                 <td>
                                     <form action="{{ route('order.destroy', $order->id) }}" method="post" style="display: inline;">

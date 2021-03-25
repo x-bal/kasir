@@ -52,9 +52,8 @@ class TransaksiController extends Controller
 
 
         $pdf = PDF::loadview('transaksi.print', ['transaksi' => $transaksi]);
-        return $pdf->download('struk-pdf.pdf');
-        // return view('transaksi.struk', compact('transaksi'));
-        // return redirect()->route('transaksi.index')->with('success', 'Transaksi Berhasil');
+        // return $pdf->download('struk-' . $transaksi->invoice . '.pdf');
+        return $pdf->stream('struk-' . $transaksi->invoice . '.pdf', ['Attachment' => false]);
     }
 
     public function show(Transaksi $transaksi)
@@ -93,12 +92,9 @@ class TransaksiController extends Controller
 
     public function print(Transaksi $transaksi)
     {
-        // return view('transaksi.print', compact('transaksi'));
-        // PDF::setOptions(['dpi' => 150, 'defaultFont' => 'Arial']);
         $pdf = PDF::loadview('transaksi.print', ['transaksi' => $transaksi])->setPaper('a4', 'potrait');
-        return $pdf->download('struk-pdf.pdf');
-
-        // return redirect()->route('transaksi.index')->with('success', 'Transaksi Berhasil');
+        return $pdf->stream('struk-' . $transaksi->invoice . '.pdf', ['Attachment' => false]);
+        // return $pdf->download('struk-' . $transaksi->invoice . '.pdf');
     }
 
     public function struk(Transaksi $transaksi)
@@ -121,11 +117,11 @@ class TransaksiController extends Controller
             'sampai.required' => 'Pilih tanggal sampai',
         ]);
 
-
         $transaksi = Transaksi::with('user')->where('created_at', '>=', request('mulai'))->where('created_at', '<=', request('sampai'))->get();
+        $total = 0;
 
-        $pdf = PDF::loadview('transaksi.generate', ['transaksi' => $transaksi, 'mulai' => request('mulai'), 'sampai' => request('sampai'), 'total' => 0])->setPaper('a4', 'landscape');
+        $pdf = PDF::loadview('transaksi.generate', ['transaksi' => $transaksi, 'mulai' => request('mulai'), 'sampai' => request('sampai'), 'total' => $total])->setPaper('a4', 'landscape');
 
-        return $pdf->download('Laporan-Transaksi.pdf');
+        return $pdf->download('Laporan-Transaksi-' . request('mulai') . '-' . request('sampai') . '.pdf');
     }
 }
