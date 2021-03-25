@@ -109,4 +109,20 @@ class BarangController extends Controller
 
         return Excel::download(new BarangEksport('barang.generate', $barang), 'laporan-barang.xlsx');
     }
+
+    public function print(Barang $barang)
+    {
+        return view('barang.print', compact('barang'));
+        // $pdf = PDF::loadview('barang.printCode', ['barang' => $barang])->setPaper('a4', 'potrait');
+
+        // return $pdf->stream('Barcode-Barang.pdf');
+    }
+    public function printCode()
+    {
+        $barang = Barang::all();
+        return view('barang.printCode', compact('barang'));
+        // $pdf = PDF::loadview('barang.printCode', ['barang' => $barang])->setPaper('a4', 'potrait');
+
+        // return $pdf->stream('Barcode-Barang.pdf');
+    }
 }

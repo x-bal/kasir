@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\{Route, Auth};
 
 Route::get('/', function () {
     return view('auth.login');
-});
+})->middleware('guest');
 
 Auth::routes();
 
@@ -58,7 +58,8 @@ Route::middleware('auth')->group(function () {
         Route::get('laporan/barang', 'BarangController@laporan')->name('laporan.barang');
         Route::post('barang/generate', 'BarangController@generate')->name('barang.generate');
         Route::post('barang/eskport', 'BarangController@export')->name('barang.eksport');
-        // Route::patch('barang/{barang:id}/update', 'BarangController@update')->name('barang.updatebarang');
+        Route::get('/barang/print-code', 'BarangController@printCode')->name('barang.printCode');
+        Route::get('/barang/print/{barang:id}', 'BarangController@print')->name('barang.print');
         Route::resource('barang', 'BarangController');
 
         // Route Distributor

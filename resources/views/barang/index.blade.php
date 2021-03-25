@@ -8,12 +8,14 @@
 
             <div class="card-body">
                 <a href="{{ route('barang.create') }}" class="btn btn-sm btn-primary mb-3">Tambah Barang</a>
+                <a href="{{ route('barang.printCode') }}" class="btn btn-sm btn-primary mb-3"><i class="fas fa-print"></i> Print Barcode</a>
                 <table class="table table-bordered table-striped" id="table">
                     <thead>
                         <tr>
                             <th></th>
                             <th>No</th>
-                            <th>Kode Barang</th>
+                            <!-- <th>Kode Barang</th> -->
+                            <th>Barcode</th>
                             <th>Nama Barang</th>
                             <th>Harga Pokok</th>
                             <th>PPN</th>
@@ -28,14 +30,19 @@
                         <tr>
                             <td></td>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $brg->kode_barang }}</td>
+                            <!-- <td>{{ $brg->kode_barang }}</td> -->
+                            <td class="text-center text-dark">
+                                <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($brg->kode_barang, 'C128')}}" alt="barcode" width="120" />
+                                <small style="font-size: 11px;">{{ $brg->kode_barang }}</small>
+                            </td>
                             <td>{{ $brg->nama_barang }}</td>
                             <td>@rupiah($brg->harga_pokok)</td>
-                            <td>{{ $brg->ppn }}%</td>
-                            <td>{{ $brg->diskon }}%</td>
+                            <td class="text-center">{{ $brg->ppn }}%</td>
+                            <td class="text-center">{{ $brg->diskon }}%</td>
                             <td>@rupiah($brg->harga_jual)</td>
                             <td>
                                 <a href="{{ route('barang.edit', $brg->id) }}" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
+                                <a href="{{ route('barang.print', $brg->id) }}" class="btn btn-sm btn-secondary"><i class="fas fa-print"></i></a>
                                 <form action="{{ route('barang.destroy', $brg->id) }}" method="post" style="display: inline;" class="delete-form">
                                     @method('DELETE')
                                     @csrf

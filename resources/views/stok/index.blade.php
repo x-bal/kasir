@@ -14,7 +14,7 @@
                             <th></th>
                             <th>No</th>
                             <th>Tanggal</th>
-                            <th>Kode Barang</th>
+                            <th>Barcode</th>
                             <th>Nama Barang</th>
                             <th>Distributor</th>
                             <th>Jumlah</th>
@@ -28,10 +28,13 @@
                             <td></td>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $stok->created_at }}</td>
-                            <td>{{ $stok->barang->kode_barang }}</td>
+                            <td class="text-center text-dark">
+                                <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($stok->barang->kode_barang, 'C128')}}" alt="barcode" width="120" /><br>
+                                <small style="font-size: 11px;">{{ $stok->barang->kode_barang }}</small>
+                            </td>
                             <td>{{ $stok->barang->nama_barang }}</td>
                             <td>{{ $stok->barang->distributor->nama_distributor }}</td>
-                            <td>{{ $stok->jumlah }}</td>
+                            <td class="text-center">{{ $stok->jumlah }}</td>
                             <td>
                                 <a href="{{ route('stok.edit', $stok->id) }}" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
                                 <form action="{{ route('stok.destroy', $stok->id) }}" method="post" style="display: inline;" class="delete-form">
