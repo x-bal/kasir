@@ -31,6 +31,7 @@ class UserController extends Controller
         $input['password'] = bcrypt('password');
         $input['level'] = $request->input('level');
 
+        // dd($input);
 
         User::create($input);
 
