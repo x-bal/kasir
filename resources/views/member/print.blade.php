@@ -16,20 +16,44 @@
 
     <div class="container" style="font-family:  Helvetica, sans-serif;">
 
-        <div class="row mt-5">
+        <div class="row">
             <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header text-light" style="height: 80px; background-color: #435ebe;">
-                        <div class="d-flex justify-content-between mt-4">
-                            {{ $member->nama_member }}
-                            <img src="{{ asset('images') }}/logo/logos.png" alt="Logo" width="100" height="30">
-                        </div>
+                <div class="card shadow" style="border-bottom: 1px solid black;">
+                    <div class="card-header text-light" style="height: 50px; background-color: #435ebe;">
+                        <table>
+                            <tr>
+                                <td class="mr-5">{{ $member->nama_member }}</td>
+                                <td class="mx-5"></td>
+                                <td class="mx-5"></td>
+                                <td class="ml-5"><img src="https://i.postimg.cc/s2W02vnQ/logos.png" alt="Logo" width="100" height="30"></td>
+                            </tr>
+                        </table>
                     </div>
 
-                    <div class="card-body mt-3 text-dark" style="height: 258px;">
-                        <form class="form form-horizontal">
-                            <div class="form-body">
-                                <div class="row">
+                    <div class="card-body mt-5 text-dark" style="height: 258px;">
+                        <table style="margin-top: 80px;">
+                            <tr>
+                                <td class="mr-5"></td>
+                                <td class="mx-5"></td>
+                                <td class="mx-5"></td>
+                                <td class="text-center" style="padding-left: 160px;"><img src="data:image/png;base64,{{DNS1D::getBarcodePNG($member->kode_member, 'C128')}}" alt="barcode" width="120" /><br>
+                                    <small style="margin-left: 12px;">{{ $member->kode_member }}</small>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">{{ $member->jk }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">{{ $member->telp }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">{{ $member->alamat }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- <form class="form form-horizontal">
+                            <div class="form-body"> -->
+                    <!-- <div class="row">
                                     <div class="col-md-6 mb-2">
                                         <label>Kode Member</label>
                                     </div>
@@ -61,23 +85,25 @@
                                     <div class="col-md-6 form-group">
                                         {{ $member->disc }}%
                                     </div>
-                                </div>
+                                </div> -->
 
-                                <div class="row">
+                    <!-- <div class="row">
                                     <div class="col-md-8">
                                     </div>
                                     <div class="col-md-4 form-group text-white mt-3" style="z-index: 1;">
                                         {{ \Carbon\Carbon::parse($member->created_at)->format('d F, Y') }}
                                     </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <svg style="margin-top: -130px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                        <path fill="#435ebe" fill-opacity="1" d="M0,288L1440,128L1440,320L0,320Z"></path>
-                    </svg>
+                                </div> -->
+                    <!-- </div>
+                        </form> -->
                 </div>
+                <svg style="margin-top: -130px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                    <path fill="#435ebe" fill-opacity="1" d="M0,288L1440,128L1440,320L0,320Z"></path>
+                </svg>
             </div>
+        </div>
+    </div>
+    <!-- <div class="row">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header text-light d-flex justify-content-between" style="height: 80px;background-color: #435ebe;">
@@ -85,14 +111,14 @@
                     </div>
 
                     <div class="card-body mt-3 text-center" style="height: 258px;">
-                        <img src="{{ asset('images') }}/logo/logo.png" alt="Logo" width="300" class="mt-5" style="opacity: .5;">
+                        <img src="https://i.postimg.cc/Z52MZrLz/logo.png" alt="Logo" width="300" class="mt-5" style="opacity: .5;">
                     </div>
                     <svg style="margin-top: -130px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                         <path fill="#435ebe" fill-opacity="1" d="M0,288L1440,128L1440,320L0,320Z"></path>
                     </svg>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 
 
