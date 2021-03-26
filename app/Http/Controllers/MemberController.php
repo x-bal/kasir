@@ -76,7 +76,7 @@ class MemberController extends Controller
     {
         $pdf = PDF::loadview('member.print', ['member' => $member])->setPaper('a4', 'potrait');
 
-        return $pdf->download('Member-Card-' . $member->nama_member . '.pdf');
+        return $pdf->stream('Member-Card-' . $member->nama_member . '.pdf', ['Attachment' => false]);
         // return view('member.print', compact('member'));
     }
 }

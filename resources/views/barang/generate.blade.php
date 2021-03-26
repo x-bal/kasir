@@ -13,14 +13,17 @@
 
 <body>
 
-    <div class="row">
-        <div class="col-lg-12">
-            <h3 class="text-center" style="font-family: Arial;">Laporan Stok Barang</h3>
+    <div class="row mb-2" style="align-items: center;">
+        <div class="col-lg-4 mt-2">
+            <img src="https://i.postimg.cc/Z52MZrLz/logo.png" alt="" width="200px">
+        </div>
+    </div>
 
-            <div class="mt-5">
-                <b>Periode : </b> {{ $mulai }} s.d {{ $sampai }}<br>
-            </div>
-            <hr>
+    <div class="row mb-5">
+        <div class="col-lg-12">
+            <h3 class="" style="font-family: Arial;">Laporan Stok Barang</h3>
+
+            <b>Periode : </b> {{ $mulai }} s.d {{ $sampai }}<br>
         </div>
     </div>
 

@@ -16,8 +16,8 @@
         <div class="row justify-content-center">
             <div class="col-md-6 mt-5">
                 <table>
-                    <tr>
-                        <td colspan="5"><img src="{{ asset('images') }}/logo/MyCash.png" alt="Logo" srcset=""> </td>
+                    <tr style="align-items: center;">
+                        <td colspan="5"><img src="https://i.postimg.cc/Z52MZrLz/logo.png" alt="Logo" srcset=""> </td>
                     </tr>
                     <tr>
                         <td colspan="2">

@@ -87,9 +87,12 @@ class BarangController extends Controller
 
 
         $barang = Barang::with('stok', 'distributor')->whereBetween('created_at', [request('mulai'), request('sampai')])->get();
+        // $mulai = request('mulai');
+        // $sampai = request('sampai');
+        // return view('barang.generate', compact('barang', 'mulai', 'sampai'));
         $pdf = PDF::loadview('barang.generate', ['barang' => $barang, 'mulai' => request('mulai'), 'sampai' => request('sampai')])->setPaper('a4', 'landscape');
 
-        return $pdf->download('Laporan-Stok-Barang.pdf');
+        return $pdf->stream('Laporan-Stok-Barang.pdf');
     }
 
     public function export()
