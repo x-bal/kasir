@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MemberRequest;
 use App\Member;
 use App\Transaksi;
+use PDF;
 
 class MemberController extends Controller
 {
@@ -27,7 +28,10 @@ class MemberController extends Controller
     public function store(MemberRequest $request)
     {
         $input = $request->all();
-        $input['disc'] = 5;
+        $input['disc'] = 3;
+
+        $code = 002 . date('dmy') . rand(10000, 99999);
+        $input['kode_member'] = $code;
 
         Member::create($input);
         return redirect()->route('member.index')->with('success', 'Member berhasil ditambahkan');
@@ -35,6 +39,7 @@ class MemberController extends Controller
 
     public function show(Member $member)
     {
+        return view('member.show', compact('member'));
     }
 
     public function edit(Member $member)
@@ -65,5 +70,13 @@ class MemberController extends Controller
         $history = Transaksi::with('member', 'orders')->where('member_id', $member->id)->latest()->get();
 
         return view('member.history', compact('history', 'member'));
+    }
+
+    public function print(Member $member)
+    {
+        $pdf = PDF::loadview('member.print', ['member' => $member])->setPaper('a4', 'potrait');
+
+        return $pdf->download('Member-Card-' . $member->nama_member . '.pdf');
+        // return view('member.print', compact('member'));
     }
 }

@@ -4,9 +4,9 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header">Tambah Barang</div>
+            <div class="card-header bg-primary text-light">Tambah Barang</div>
 
-            <div class="card-body">
+            <div class="card-body mt-3">
                 <form action="{{ route('barang.store') }}" method="post">
                     @csrf
                     <div class="row">

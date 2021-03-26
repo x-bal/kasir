@@ -42,7 +42,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="{{ route('dashboard') }}"><img src="{{ asset('images') }}/logo/MyCash.png" alt="Logo" srcset=""></a>
+                            <a href="{{ route('dashboard') }}"><img src="{{ asset('images') }}/logo/MyCash.png" alt="Logo"></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class='sidebar-hide d-xl-none d-block'><i class='bi bi-x bi-middle'></i></a>
@@ -59,7 +59,7 @@
                                 <span>Dashboard</span>
                             </a>
                         </li>
-                        @if(auth()->user()->level->level == 'admin')
+                        @if(auth()->user()->level == 'admin')
                         <li class="sidebar-item {{ Request::segment(1) == 'users' ? 'active' : '' }}">
                             <a href="{{ route('users.index') }}" class='sidebar-link'>
                                 <i class="fas fa-users"></i>
@@ -82,7 +82,7 @@
                             </a>
                         </li>
 
-                        @if(auth()->user()->level->level == 'admin')
+                        @if(auth()->user()->level == 'admin')
                         <li class="sidebar-item {{ Request::segment(1) == 'barang' ? 'active' : '' }}">
                             <a href="{{ route('barang.index') }}" class='sidebar-link'>
                                 <i class="fas fa-store"></i>
@@ -104,7 +104,7 @@
                         </li>
                         @endif
 
-                        @if(auth()->user()->level->level == 'karyawan')
+                        @if(auth()->user()->level == 'karyawan')
                         <li class="sidebar-item {{ Request::segment(1) == 'transaksi' && Request::segment(2) == 'create' ? 'active' : '' }}">
                             <a href="{{ route('transaksi.create') }}" class='sidebar-link'>
                                 <i class="fas fa-cash-register"></i>
@@ -163,7 +163,7 @@
                                     <div class="user-menu d-flex">
                                         <div class="user-name text-end me-3">
                                             <h6 class="mb-0 text-gray-600">{{ auth()->user()->nama }}</h6>
-                                            <p class="mb-0 text-sm text-gray-600">{{ auth()->user()->level->level }}</p>
+                                            <p class="mb-0 text-sm text-gray-600">{{ auth()->user()->level }}</p>
                                         </div>
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md">

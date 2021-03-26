@@ -112,10 +112,10 @@ class BarangController extends Controller
 
     public function print(Barang $barang)
     {
-        return view('barang.print', compact('barang'));
-        // $pdf = PDF::loadview('barang.printCode', ['barang' => $barang])->setPaper('a4', 'potrait');
+        // return view('barang.print', compact('barang'));
+        $pdf = PDF::loadview('barang.print', ['barang' => $barang])->setPaper('a4', 'potrait');
 
-        // return $pdf->stream('Barcode-Barang.pdf');
+        return $pdf->stream('Barcode-Barang.pdf');
     }
     public function printCode()
     {

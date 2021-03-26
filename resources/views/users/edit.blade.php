@@ -4,9 +4,9 @@
 <div class="row">
     <div class="col-md-8">
         <div class="card">
-            <div class="card-header">Edit User</div>
+            <div class="card-header bg-primary text-light">Edit User</div>
 
-            <div class="card-body">
+            <div class="card-body mt-3">
                 <form action="{{ route('users.update', $user->id) }}" method="post">
                     @method('PATCH')
                     @csrf
@@ -66,13 +66,8 @@
                     <div class="form-group">
                         <label for="level">Level</label>
                         <select name="level" id="level" class="form-control">
-                            @foreach($levels as $level)
-                            @if($user->level_id == $level->id)
-                            <option selected value="{{ $level->id }}">{{ $level->level }}</option>
-                            @else
-                            <option value="{{ $level->id }}">{{ $level->level }}</option>
-                            @endif
-                            @endforeach
+                            <option {{ $user->level == 'admin' ? 'selected' : '' }} value="admin">Admin</option>
+                            <option {{ $user->level == 'karyawan' ? 'selected' : '' }} value="karyawan">Karyawan</option>
                         </select>
 
                         @error('level')

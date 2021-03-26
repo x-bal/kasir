@@ -4,9 +4,9 @@
 <div class="row">
     <div class="col-md-8">
         <div class="card">
-            <div class="card-header">Tambah User</div>
+            <div class="card-header bg-primary text-light">Tambah User</div>
 
-            <div class="card-body">
+            <div class="card-body mt-3">
                 <form action="{{ route('users.store') }}" method="post">
                     @csrf
                     <div class="form-group">
@@ -66,9 +66,8 @@
                         <label for="level">Level</label>
                         <select name="level" id="level_id" class="form-control">
                             <option disabled selected>-- Pilih Level --</option>
-                            @foreach($levels as $level)
-                            <option value="{{ $level->id }}">{{ $level->level }}</option>
-                            @endforeach
+                            <option value="admin">Admin</option>
+                            <option value="karyawan">Karyawan</option>
                         </select>
 
                         @error('level')

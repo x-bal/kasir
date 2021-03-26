@@ -4,9 +4,9 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
-            <div class="card-header">Data Barang</div>
+            <div class="card-header bg-primary text-light">Data Barang</div>
 
-            <div class="card-body">
+            <div class="card-body mt-3">
                 <a href="{{ route('barang.create') }}" class="btn btn-sm btn-primary mb-3">Tambah Barang</a>
                 <a href="{{ route('barang.printCode') }}" class="btn btn-sm btn-primary mb-3"><i class="fas fa-print"></i> Print Barcode</a>
                 <table class="table table-bordered table-striped" id="table">
@@ -15,11 +15,11 @@
                             <th></th>
                             <th>No</th>
                             <!-- <th>Kode Barang</th> -->
-                            <th>Barcode</th>
+                            <th style="width: 100px;" class="text-center">Barcode</th>
                             <th>Nama Barang</th>
                             <th>Harga Pokok</th>
-                            <th>PPN</th>
-                            <th>Diskon</th>
+                            <th class="text-center">PPN</th>
+                            <th class="text-center">Disc</th>
                             <th>Harga Jual</th>
                             <th>Opsi</th>
                         </tr>
@@ -40,7 +40,7 @@
                             <td class="text-center">{{ $brg->ppn }}%</td>
                             <td class="text-center">{{ $brg->diskon }}%</td>
                             <td>@rupiah($brg->harga_jual)</td>
-                            <td>
+                            <td style="display: inline-flex;">
                                 <a href="{{ route('barang.edit', $brg->id) }}" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
                                 <a href="{{ route('barang.print', $brg->id) }}" class="btn btn-sm btn-secondary"><i class="fas fa-print"></i></a>
                                 <form action="{{ route('barang.destroy', $brg->id) }}" method="post" style="display: inline;" class="delete-form">

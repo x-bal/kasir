@@ -32,7 +32,7 @@
 
     <script>
         $(document).ready(function() {
-            print();
+            print()
         })
     </script>
 </body>

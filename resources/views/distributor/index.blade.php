@@ -4,9 +4,9 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
-            <div class="card-header">Data Distributor</div>
+            <div class="card-header bg-primary text-light">Data Distributor</div>
 
-            <div class="card-body">
+            <div class="card-body mt-3">
                 <a href="{{ route('distributor.create') }}" class="btn btn-sm btn-primary mb-3">Tambah Distributor</a>
                 <table class="table table-bordered table-striped" id="table">
                     <thead>

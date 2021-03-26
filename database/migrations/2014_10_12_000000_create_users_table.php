@@ -15,13 +15,13 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('level_id')->constrained('levels');
             $table->string('username', 128)->unique();
             $table->string('nama', 128);
             $table->string('jk', 20);
             $table->text('alamat');
             $table->string('telp', 15);
             $table->string('password', 128);
+            $table->enum('level', ['admin', 'karyawan']);
             $table->timestamps();
         });
     }

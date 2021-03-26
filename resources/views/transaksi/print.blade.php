@@ -17,7 +17,7 @@
             <div class="col-md-6 mt-5">
                 <table>
                     <tr>
-                        <td colspan="5"><b>Nama Toko</b> </td>
+                        <td colspan="5"><img src="{{ asset('images') }}/logo/MyCash.png" alt="Logo" srcset=""> </td>
                     </tr>
                     <tr>
                         <td colspan="2">
@@ -67,7 +67,19 @@
                     $item += $order->qty
                     @endphp
                     @endforeach
+                    @if($transaksi->member)
+                    <tr>
+                        <td colspan="5">-----------------------------------------------------------------------------------------------------</td>
+                    </tr>
 
+                    <tr>
+                        <td class="text-left">Diskon Member</td>
+                        <td></td>
+                        <td class="text-center">:</td>
+                        <td></td>
+                        <td class="text-right">{{ $transaksi->member->disc }}%</td>
+                    </tr>
+                    @endif
                     <tr>
                         <td colspan="5">-----------------------------------------------------------------------------------------------------</td>
                     </tr>
@@ -77,7 +89,7 @@
                         <td>{{ $item }} item(s)</td>
                         <td class="text-center">:</td>
                         <td></td>
-                        <td class="text-right">Rp. @rp($total)</td>
+                        <td class="text-right">Rp. @rp($transaksi->total)</td>
                     </tr>
                     <tr>
                         <td class="text-left">Tunai</td>

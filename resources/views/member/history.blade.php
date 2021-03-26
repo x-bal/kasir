@@ -5,9 +5,9 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
-            <div class="card-header">History Transaksi {{$member->nama_member}}</div>
+            <div class="card-header bg-primary text-light">History Transaksi {{$member->nama_member}}</div>
 
-            <div class="card-body">
+            <div class="card-body mt-3">
                 <table class="table table-bordered table-striped" id="table">
                     <thead>
                         <tr>

@@ -11,7 +11,7 @@
         </div>
     </div>
 </div>
-@if(auth()->user()->level->level == 'admin')
+@if(auth()->user()->level == 'admin')
 <div class="row">
     <div class="col-12 col-lg-12">
         <div class="row">

@@ -4,9 +4,9 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header">Edit Barang</div>
+            <div class="card-header bg-primary text-light">Edit Barang</div>
 
-            <div class="card-body">
+            <div class="card-body mt-3">
                 <form action="{{ route('barang.update', $barang->id) }}" method="post">
                     @method('PATCH')
                     @csrf

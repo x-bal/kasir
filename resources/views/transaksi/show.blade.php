@@ -4,10 +4,10 @@
 <div class="row">
     <div class="col-md-8">
         <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Detail Transaksi</h4>
+            <div class="card-header bg-primary text-light">
+                Detail Transaksi
             </div>
-            <div class="card-content">
+            <div class="card-content mt-3">
                 <div class="card-body">
                     <form class="form form-horizontal">
                         <div class="form-body">

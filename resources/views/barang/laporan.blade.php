@@ -4,9 +4,9 @@
 <div class="row">
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header">Laporan Stok Barang</div>
+            <div class="card-header bg-primary text-light">Laporan Stok Barang</div>
 
-            <div class="card-body">
+            <div class="card-body mt-3">
                 <form action="{{route('barang.generate')}}" method="post" id="form">
                     @csrf
                     <div class="form-group">

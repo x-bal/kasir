@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
 
     // Route Member
     Route::get('/member/get/{member:id}', 'MemberController@get')->name('member.get');
+    Route::get('/member/print/{member:id}', 'MemberController@print')->name('member.print');
     Route::resource('member', 'MemberController');
 
     // Route Transaksi

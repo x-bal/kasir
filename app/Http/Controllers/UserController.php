@@ -15,14 +15,13 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::with('level')->get();
+        $users = User::get();
         return view('users.index', compact('users'));
     }
 
     public function create()
     {
-        $levels = Level::all();
-        return view('users.create', compact('levels'));
+        return view('users.create',);
     }
 
     public function store(UserRequest $request)
@@ -30,7 +29,7 @@ class UserController extends Controller
 
         $input = $request->all();
         $input['password'] = bcrypt('password');
-        $input['level_id'] = $request->input('level');
+        $input['level'] = $request->input('level');
 
 
         User::create($input);
@@ -44,14 +43,13 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        $levels = Level::all();
-        return view('users.edit', compact('user', 'levels'));
+        return view('users.edit', compact('user'));
     }
 
     public function update(UserUpdateRequest $request, User $user)
     {
         $input = $request->all();
-        $input['level_id'] = $request->input('level');
+        $input['level'] = $request->input('level');
 
         $user->update($input);
 
@@ -66,7 +64,7 @@ class UserController extends Controller
 
     public function generate()
     {
-        $users = User::where('level_id', 2)->get();
+        $users = User::where('level', 'karyawan')->get();
         $pdf = PDF::loadview('users.generate', ['users' => $users])->setPaper('a4', 'landscape');
 
 
