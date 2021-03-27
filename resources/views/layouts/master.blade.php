@@ -204,10 +204,86 @@
                     </div>
                 </div>
                 <div class="page-content">
-                    @yield('content')
+                    @if(auth()->user()->level == 'karyawan')
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Selamat Datang, {{ auth()->user()->nama }}</h5>
+                                    <p>Have a nice day :)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-12">
+                            <div class="row">
+                                <div class="col-6 col-lg-3 col-md-6">
+                                    <a href="{{ route('dashboard') }}">
+                                        <div class="card">
+                                            <div class="card-body py-3-3 text-center text-secondary">
+                                                <div class="row justify-content-center">
+                                                    <div class="stats-icon purple text-white">
+                                                        <i class='fas fa-th'></i>
+                                                    </div>
+                                                </div>
+                                                Dashboard
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6 col-lg-3 col-md-6">
+                                    <a href="{{ route('member.index') }}">
+                                        <div class="card">
+                                            <div class="card-body py-3-3 text-center text-secondary">
+                                                <div class="row justify-content-center">
+                                                    <div class="stats-icon blue text-white">
+                                                        <i class='fas fa-user-tag'></i>
+                                                    </div>
+                                                </div>
+                                                Member
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6 col-lg-3 col-md-6">
+                                    <a href="{{ route('transaksi.create') }}">
+                                        <div class="card">
+                                            <div class="card-body py-3-3 text-center text-secondary">
+                                                <div class="row justify-content-center">
+                                                    <div class="stats-icon red text-white">
+                                                        <i class='fas fa-cash-register'></i>
+                                                    </div>
+                                                </div>
+                                                Entri Transaksi
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6 col-lg-3 col-md-6">
+                                    <a href="{{ route('transaksi.index') }}">
+                                        <div class="card">
+                                            <div class="card-body py-3-3 text-center text-secondary">
+                                                <div class="row justify-content-center">
+                                                    <div class="stats-icon green text-white">
+                                                        <i class='fas fa-credit-card'></i>
+                                                    </div>
+                                                </div>
+                                                History Transaksi
+                                            </div>
+                                        </div>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                @endif
+                @yield('content')
+
             </div>
         </div>
+    </div>
     </div>
 
 

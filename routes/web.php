@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function () {
         Route::patch('order/updateTransaksi/{transaksi:id}', 'OrderController@updateTransaksi')->name('order.updateTransaksi');
 
         Route::get('laporan/transaksi', 'TransaksiController@laporan')->name('laporan.transaksi');
-        Route::get('transaksi/generate/{mulai}/{sampai}', 'TransaksiController@generate')->name('transaksi.generate');
+        Route::post('laporan/transaksi', 'TransaksiController@laporan');
+        Route::get('transaksi/generate/{mulai}/{sampai}/{user}', 'TransaksiController@generate')->name('transaksi.generate');
     });
 });

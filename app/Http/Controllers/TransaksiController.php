@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\{Barang, Transaksi, Stok, Member, Order};
+use App\{Barang, Transaksi, Stok, Member, Order, User};
 use App\Http\Requests\TransaksiRequest;
 use PDF;
 
@@ -17,7 +17,11 @@ class TransaksiController extends Controller
 
     public function index()
     {
-        $transaksi = Transaksi::latest()->get();
+        if (auth()->user()->level == 'karyawan') {
+            $transaksi = Transaksi::where('user_id', auth()->user()->id)->latest()->get();
+        } else {
+            $transaksi = Transaksi::latest()->get();
+        }
         return view('transaksi.index', compact('transaksi'));
     }
 
@@ -107,38 +111,47 @@ class TransaksiController extends Controller
 
     public function laporan()
     {
+        $users = User::all();
         if (request('mulai')) {
+            if (request('user') !== 'null') {
+                $transaksi = Transaksi::with('user')->where('created_at', '>=', request('mulai'))->where('created_at', '<=', request('sampai'))->where('user_id', request('user'))->get();
+                $total = 0;
+                return view('transaksi.laporan', compact('transaksi', 'total', 'users'));
+            }
             $transaksi = Transaksi::with('user')->where('created_at', '>=', request('mulai'))->where('created_at', '<=', request('sampai'))->get();
             $total = 0;
 
             if (count($transaksi) > 0) {
-                return view('transaksi.laporan', compact('transaksi'));
+                $total = 0;
+                return view('transaksi.laporan', compact('transaksi', 'total', 'users'));
             } else {
                 $transaksi = 'kosong';
-                return view('transaksi.laporan', compact('transaksi'));
+                return view('transaksi.laporan', compact('transaksi', 'users'));
             }
         } else {
             $transaksi = 'kosong';
-            return view('transaksi.laporan', compact('transaksi'));
+            return view('transaksi.laporan', compact('transaksi', 'users'));
         }
-        return view('transaksi.laporan');
+
+        return view('transaksi.laporan', compact('users'));
     }
 
-    public function generate()
+    public function generate($mulai, $sampai, $user)
     {
-        // request()->validate([
-        //     'mulai' => 'required',
-        //     'sampai' => 'required',
-        // ], [
-        //     'mulai.required' => 'Pilih tanggal mulai',
-        //     'sampai.required' => 'Pilih tanggal sampai',
-        // ]);
+        if ($user != 'null') {
+            $transaksi = Transaksi::with('user')->where('created_at', '>=', request('mulai'))->where('created_at', '<=', request('sampai'))->where('user_id', request('user'))->get();
+            $total = 0;
 
-        $transaksi = Transaksi::with('user')->where('created_at', '>=', request('mulai'))->where('created_at', '<=', request('sampai'))->get();
-        $total = 0;
+            $pdf = PDF::loadview('transaksi.generate', ['transaksi' => $transaksi, 'mulai' => $mulai, 'sampai' => $sampai, 'total' => $total])->setPaper('a4', 'landscape');
 
-        $pdf = PDF::loadview('transaksi.generate', ['transaksi' => $transaksi, 'mulai' => request('mulai'), 'sampai' => request('sampai'), 'total' => $total])->setPaper('a4', 'landscape');
+            return $pdf->download('Laporan-Transaksi-' . $mulai . '-' . $sampai . '.pdf');
+        } else {
+            $transaksi = Transaksi::with('user')->where('created_at', '>=', $mulai)->where('created_at', '<=', $sampai)->get();
+            $total = 0;
 
-        return $pdf->download('Laporan-Transaksi-' . request('mulai') . '-' . request('sampai') . '.pdf');
+            $pdf = PDF::loadview('transaksi.generate', ['transaksi' => $transaksi, 'mulai' => $mulai, 'sampai' => $sampai, 'total' => $total])->setPaper('a4', 'landscape');
+
+            return $pdf->download('Laporan-Transaksi-' . $mulai . '-' . $sampai . '.pdf');
+        }
     }
 }
