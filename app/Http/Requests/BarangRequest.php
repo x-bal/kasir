@@ -26,10 +26,10 @@ class BarangRequest extends FormRequest
         return [
             'nama_barang' => 'required',
             'distributor' => 'required',
-            'harga_pokok' => 'required',
-            'ppn' => 'required',
-            'harga_jual' => 'required',
-            'stok' => 'required',
+            'harga_pokok' => 'required|numeric',
+            'ppn' => 'required|numeric',
+            'harga_jual' => 'required|numeric',
+            'stok' => 'required|numeric',
         ];
     }
 
@@ -42,6 +42,10 @@ class BarangRequest extends FormRequest
             'ppn.required' => 'PPN tidak boleh kosong',
             'harga_jual.required' => 'Harga Jual tidak boleh kosong',
             'stok.required' => 'Harga Jual tidak boleh kosong',
+            'stok.numeric' => 'Stok harus berupa angka',
+            'harga_pokok.numeric' => 'Harga pokok harus berupa angka',
+            'ppn.numeric' => 'PPN harus berupa angka',
+            'harga_jual.numeric' => 'Harga Jual harus berupa angka',
         ];
     }
 }

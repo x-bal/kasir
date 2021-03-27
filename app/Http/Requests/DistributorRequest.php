@@ -26,7 +26,7 @@ class DistributorRequest extends FormRequest
         return [
             'nama_distributor' => 'required',
             'alamat' => 'required',
-            'telp' => 'required',
+            'telp' => 'required|numeric',
         ];
     }
 
@@ -36,6 +36,7 @@ class DistributorRequest extends FormRequest
             'nama_distributor.required' => 'Nama distributor tidak boleh kosong',
             'alamat.required' => 'Nama distributor tidak boleh kosong',
             'telp.required' => 'Nama distributor tidak boleh kosong',
+            'telp.numeric' => 'Telp harus berupa angka',
         ];
     }
 }

@@ -26,7 +26,7 @@ class MemberRequest extends FormRequest
         return [
             'nama_member' => 'required',
             'jk' => 'required',
-            'telp' => 'required',
+            'telp' => 'required|numeric',
             'alamat' => 'required',
         ];
     }
@@ -38,6 +38,7 @@ class MemberRequest extends FormRequest
             'jk.required' => 'Pilih jenis kelamin',
             'telp.required' => 'Telp tidak boleh kosong',
             'alamat.required' => 'Alamat tidak boleh kosong',
+            'telp.numeric' => 'Telp harus berupa angka',
         ];
     }
 }

@@ -25,7 +25,7 @@ class StokRequest extends FormRequest
     {
         return [
             'barang' => 'required',
-            'jumlah' => 'required',
+            'jumlah' => 'required|numeric',
         ];
     }
 
@@ -34,6 +34,7 @@ class StokRequest extends FormRequest
         return [
             'barang.required' => 'Pilih barang',
             'jumlah.required' => 'Jumlah tidak boleh kosong',
+            'jumlah.numeric' => 'Jumlah harus berupa angka',
         ];
     }
 }

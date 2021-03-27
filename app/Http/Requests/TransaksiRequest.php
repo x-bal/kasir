@@ -24,9 +24,9 @@ class TransaksiRequest extends FormRequest
     public function rules()
     {
         return [
-            'total' => 'required',
-            'bayar' => 'required',
-            'kembalian' => 'required'
+            'total' => 'required|numeric',
+            'bayar' => 'required|numeric',
+            'kembalian' => 'required|numeric'
         ];
     }
 
@@ -36,6 +36,8 @@ class TransaksiRequest extends FormRequest
             'total.required' => 'Total tidak boleh kosong',
             'bayar.required' => 'Bayar tidak boleh kosong',
             'kembalian.required' => 'Kembalian tidak boleh kosong',
+            'kembalian.numeric' => 'Kembalian harus berupa angka',
+            'bayar.numeric' => 'Bayar harus berupa angka',
         ];
     }
 }

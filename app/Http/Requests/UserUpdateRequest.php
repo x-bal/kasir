@@ -28,7 +28,7 @@ class UserUpdateRequest extends FormRequest
             'nama' => 'required',
             'jk' => 'required',
             'alamat' => 'required',
-            'telp' => 'required',
+            'telp' => 'required|numeric',
             'level' => 'required'
         ];
     }
@@ -43,6 +43,7 @@ class UserUpdateRequest extends FormRequest
             'alamat.required' => 'Alamat tidak boleh kosong',
             'telp.required' => 'Telp tidak boleh kosong',
             'level.required' => 'Pilih level',
+            'telp.numeric' => 'Telp harus berupa angka',
         ];
     }
 }
