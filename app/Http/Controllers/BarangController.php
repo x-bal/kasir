@@ -69,10 +69,33 @@ class BarangController extends Controller
 
     public function laporan()
     {
-        return view('barang.laporan');
+        if (request('mulai')) {
+            $barang = Barang::with('stok', 'distributor')->whereBetween('created_at', [request('mulai'), request('sampai')])->get();
+
+            if (count($barang) > 0) {
+                return view('barang.laporan', compact('barang'));
+            } else {
+                $barang = 'kosong';
+                return view('barang.laporan', compact('barang'));
+            }
+        } else {
+            $barang = 'kosong';
+            return view('barang.laporan', compact('barang'));
+        }
     }
 
-    public function generate()
+    public function generate($mulai, $sampai)
+    {
+        $barang = Barang::with('stok', 'distributor')->whereBetween('created_at', [$mulai, $sampai])->get();
+        // $mulai = request('mulai');
+        // $sampai = request('sampai');
+        // return view('barang.previre', compact('barang', 'mulai', 'sampai'));
+        $pdf = PDF::loadview('barang.generate', ['barang' => $barang, 'mulai' => $mulai, 'sampai' => $sampai])->setPaper('a4', 'landscape');
+
+        return $pdf->download('Laporan-Stok-Barang-' . $mulai . '-' . $sampai . '.pdf');
+    }
+
+    public function preview()
     {
         request()->validate(
             [
@@ -87,12 +110,9 @@ class BarangController extends Controller
 
 
         $barang = Barang::with('stok', 'distributor')->whereBetween('created_at', [request('mulai'), request('sampai')])->get();
-        // $mulai = request('mulai');
-        // $sampai = request('sampai');
-        // return view('barang.generate', compact('barang', 'mulai', 'sampai'));
-        $pdf = PDF::loadview('barang.generate', ['barang' => $barang, 'mulai' => request('mulai'), 'sampai' => request('sampai')])->setPaper('a4', 'landscape');
-
-        return $pdf->stream('Laporan-Stok-Barang.pdf');
+        $mulai = request('mulai');
+        $sampai = request('sampai');
+        return view('barang.laporan', compact('barang', 'mulai', 'sampai'));
     }
 
     public function export()

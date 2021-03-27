@@ -107,18 +107,32 @@ class TransaksiController extends Controller
 
     public function laporan()
     {
+        if (request('mulai')) {
+            $transaksi = Transaksi::with('user')->where('created_at', '>=', request('mulai'))->where('created_at', '<=', request('sampai'))->get();
+            $total = 0;
+
+            if (count($transaksi) > 0) {
+                return view('transaksi.laporan', compact('transaksi'));
+            } else {
+                $transaksi = 'kosong';
+                return view('transaksi.laporan', compact('transaksi'));
+            }
+        } else {
+            $transaksi = 'kosong';
+            return view('transaksi.laporan', compact('transaksi'));
+        }
         return view('transaksi.laporan');
     }
 
     public function generate()
     {
-        request()->validate([
-            'mulai' => 'required',
-            'sampai' => 'required',
-        ], [
-            'mulai.required' => 'Pilih tanggal mulai',
-            'sampai.required' => 'Pilih tanggal sampai',
-        ]);
+        // request()->validate([
+        //     'mulai' => 'required',
+        //     'sampai' => 'required',
+        // ], [
+        //     'mulai.required' => 'Pilih tanggal mulai',
+        //     'sampai.required' => 'Pilih tanggal sampai',
+        // ]);
 
         $transaksi = Transaksi::with('user')->where('created_at', '>=', request('mulai'))->where('created_at', '<=', request('sampai'))->get();
         $total = 0;

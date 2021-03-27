@@ -39,8 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/transaksi/{transaksi:id}/struk', 'TransaksiController@struk')->name('transaksi.struk');
     Route::get('/transaksi/generate/{total}', 'TransaksiController@generate')->name('transaksi.generate');
     Route::post('/transaksi/add', 'TransaksiController@add')->name('transaksi.add');
-    Route::get('laporan/transaksi', 'TransaksiController@laporan')->name('laporan.transaksi');
-    Route::post('transaksi/generate', 'TransaksiController@generate')->name('transaksi.generate');
+
 
     Route::resource('transaksi', 'TransaksiController');
 
@@ -57,7 +56,8 @@ Route::middleware('auth')->group(function () {
 
         // Route Barang
         Route::get('laporan/barang', 'BarangController@laporan')->name('laporan.barang');
-        Route::post('barang/generate', 'BarangController@generate')->name('barang.generate');
+        Route::post('laporan/barang', 'BarangController@laporan');
+        Route::get('barang/generate/{mulai}/{sampai}', 'BarangController@generate')->name('barang.generate');
         Route::post('barang/eskport', 'BarangController@export')->name('barang.eksport');
         Route::get('/barang/print-code', 'BarangController@printCode')->name('barang.printCode');
         Route::get('/barang/print/{barang:id}', 'BarangController@print')->name('barang.print');
@@ -71,5 +71,8 @@ Route::middleware('auth')->group(function () {
 
         // Route Transaksi
         Route::patch('order/updateTransaksi/{transaksi:id}', 'OrderController@updateTransaksi')->name('order.updateTransaksi');
+
+        Route::get('laporan/transaksi', 'TransaksiController@laporan')->name('laporan.transaksi');
+        Route::get('transaksi/generate/{mulai}/{sampai}', 'TransaksiController@generate')->name('transaksi.generate');
     });
 });
