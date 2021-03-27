@@ -12,7 +12,7 @@
 
                     <div class="form-group">
                         <label for="member">Nama Member</label>
-                        <input type="text" name="nama_member" id="member" class="form-control">
+                        <input type="text" name="nama_member" id="member" class="form-control" value="{{ old('nama_member') }}">
 
                         @error('nama_member')
                         <small class="text-danger">{{ $message }}</small>
@@ -38,7 +38,7 @@
 
                     <div class="form-group">
                         <label for="telp">Telp</label>
-                        <input type="number" name="telp" id="telp" class="form-control">
+                        <input type="number" name="telp" id="telp" class="form-control" value="{{ old('number') }}">
 
                         @error('telp')
                         <small class="text-danger">{{ $message }}</small>
@@ -47,7 +47,7 @@
 
                     <div class="form-group">
                         <label for="alamat">Alamat</label>
-                        <textarea name="alamat" id="alamat" rows="4" class="form-control"></textarea>
+                        <textarea name="alamat" id="alamat" rows="4" class="form-control">{{ old('alamat') }}</textarea>
 
                         @error('alamat')
                         <small class="text-danger">{{ $message }}</small>

@@ -37,13 +37,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function level()
-    {
-        return $this->belongsTo(Level::class);
-    }
 
     public function transaksi()
     {
         return $this->hasOne(Transaksi::class);
+    }
+
+    public function order()
+    {
+        return $this->hasOne(Order::class);
     }
 }

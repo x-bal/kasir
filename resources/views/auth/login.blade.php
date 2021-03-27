@@ -23,16 +23,28 @@
 
                     <form action="{{ route('login') }}" method="POST">
                         @csrf
-                        <div class="form-group position-relative has-icon-left mb-4">
+                        <div class="form-group position-relative mb-4">
                             <input type="text" class="form-control" name="username" placeholder="Username" value="{{ old('username') }}">
-                            <div class=" form-control-icon">
+                            <!-- <div class=" form-control-icon">
                                 <i class="bi bi-person"></i>
+                            </div> -->
+                            <div>
+                                @error('username')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
+
                         </div>
-                        <div class="form-group position-relative has-icon-left mb-4">
+                        <div class="form-group position-relative mb-4">
                             <input type="password" class="form-control" name="password" placeholder="Password">
-                            <div class="form-control-icon">
+                            <!-- <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
+                            </div> -->
+
+                            <div>
+                                @error('password')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <button class="btn btn-primary btn-block shadow-lg mt-5">Login</button>

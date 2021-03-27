@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 27 Mar 2021 pada 01.13
--- Versi server: 10.4.18-MariaDB
--- Versi PHP: 7.4.16
+-- Generation Time: Mar 27, 2021 at 02:06 AM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 7.4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `barang`
+-- Table structure for table `barang`
 --
 
 CREATE TABLE `barang` (
@@ -41,7 +41,7 @@ CREATE TABLE `barang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `barang`
+-- Dumping data for table `barang`
 --
 
 INSERT INTO `barang` (`id`, `kode_barang`, `distributor_id`, `nama_barang`, `harga_pokok`, `ppn`, `diskon`, `harga_jual`, `created_at`, `updated_at`) VALUES
@@ -54,7 +54,7 @@ INSERT INTO `barang` (`id`, `kode_barang`, `distributor_id`, `nama_barang`, `har
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `distributor`
+-- Table structure for table `distributor`
 --
 
 CREATE TABLE `distributor` (
@@ -67,7 +67,7 @@ CREATE TABLE `distributor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `distributor`
+-- Dumping data for table `distributor`
 --
 
 INSERT INTO `distributor` (`id`, `nama_distributor`, `alamat`, `telp`, `created_at`, `updated_at`) VALUES
@@ -80,7 +80,7 @@ INSERT INTO `distributor` (`id`, `nama_distributor`, `alamat`, `telp`, `created_
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `failed_jobs`
+-- Table structure for table `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
@@ -95,7 +95,7 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `members`
+-- Table structure for table `members`
 --
 
 CREATE TABLE `members` (
@@ -110,17 +110,10 @@ CREATE TABLE `members` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data untuk tabel `members`
---
-
-INSERT INTO `members` (`id`, `kode_member`, `nama_member`, `jk`, `telp`, `alamat`, `disc`, `created_at`, `updated_at`) VALUES
-(3, '00226032146609', 'Desvia Syalwa Rinjanie', 'Perempuan', '0894378643747', 'Cikiray', 3, '2021-03-26 04:02:47', '2021-03-26 08:51:44');
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `migrations`
+-- Table structure for table `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -130,7 +123,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `migrations`
+-- Dumping data for table `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -147,7 +140,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `orders`
+-- Table structure for table `orders`
 --
 
 CREATE TABLE `orders` (
@@ -161,16 +154,25 @@ CREATE TABLE `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `orders`
+-- Triggers `orders`
 --
-
-INSERT INTO `orders` (`id`, `transaksi_id`, `barang_id`, `qty`, `user_id`, `created_at`, `updated_at`) VALUES
-(3, 1, 3, 1, 2, '2021-03-27 00:10:57', '2021-03-27 00:10:57');
+DELIMITER $$
+CREATE TRIGGER `batal_jual` AFTER DELETE ON `orders` FOR EACH ROW BEGIN
+	UPDATE stok SET jumlah = jumlah + OLD.qty WHERE barang_id = OLD.barang_id;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `jual_barang` AFTER INSERT ON `orders` FOR EACH ROW BEGIN
+	UPDATE stok SET jumlah = jumlah - NEW.qty WHERE barang_id = NEW.barang_id;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `stok`
+-- Table structure for table `stok`
 --
 
 CREATE TABLE `stok` (
@@ -182,7 +184,7 @@ CREATE TABLE `stok` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `stok`
+-- Dumping data for table `stok`
 --
 
 INSERT INTO `stok` (`id`, `barang_id`, `jumlah`, `created_at`, `updated_at`) VALUES
@@ -195,7 +197,7 @@ INSERT INTO `stok` (`id`, `barang_id`, `jumlah`, `created_at`, `updated_at`) VAL
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaksi`
+-- Table structure for table `transaksi`
 --
 
 CREATE TABLE `transaksi` (
@@ -213,7 +215,7 @@ CREATE TABLE `transaksi` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -230,7 +232,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `nama`, `jk`, `alamat`, `telp`, `password`, `level`, `created_at`, `updated_at`) VALUES
@@ -242,38 +244,38 @@ INSERT INTO `users` (`id`, `username`, `nama`, `jk`, `alamat`, `telp`, `password
 --
 
 --
--- Indeks untuk tabel `barang`
+-- Indexes for table `barang`
 --
 ALTER TABLE `barang`
   ADD PRIMARY KEY (`id`),
   ADD KEY `barang_distributor_id_foreign` (`distributor_id`);
 
 --
--- Indeks untuk tabel `distributor`
+-- Indexes for table `distributor`
 --
 ALTER TABLE `distributor`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `failed_jobs`
+-- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `members`
+-- Indexes for table `members`
 --
 ALTER TABLE `members`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `migrations`
+-- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `orders`
+-- Indexes for table `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
@@ -281,14 +283,14 @@ ALTER TABLE `orders`
   ADD KEY `orders_barang_id_foreign` (`barang_id`);
 
 --
--- Indeks untuk tabel `stok`
+-- Indexes for table `stok`
 --
 ALTER TABLE `stok`
   ADD PRIMARY KEY (`id`),
   ADD KEY `stok_barang_id_foreign` (`barang_id`);
 
 --
--- Indeks untuk tabel `transaksi`
+-- Indexes for table `transaksi`
 --
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id`),
@@ -296,94 +298,94 @@ ALTER TABLE `transaksi`
   ADD KEY `transaksi_member_id_foreign` (`member_id`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_username_unique` (`username`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `barang`
+-- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT untuk tabel `distributor`
+-- AUTO_INCREMENT for table `distributor`
 --
 ALTER TABLE `distributor`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `failed_jobs`
+-- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `members`
+-- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `migrations`
+-- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT untuk tabel `orders`
+-- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `stok`
+-- AUTO_INCREMENT for table `stok`
 --
 ALTER TABLE `stok`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `transaksi`
+-- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `barang`
+-- Constraints for table `barang`
 --
 ALTER TABLE `barang`
   ADD CONSTRAINT `barang_distributor_id_foreign` FOREIGN KEY (`distributor_id`) REFERENCES `distributor` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `orders`
+-- Constraints for table `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_barang_id_foreign` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `stok`
+-- Constraints for table `stok`
 --
 ALTER TABLE `stok`
   ADD CONSTRAINT `stok_barang_id_foreign` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `transaksi`
+-- Constraints for table `transaksi`
 --
 ALTER TABLE `transaksi`
   ADD CONSTRAINT `transaksi_member_id_foreign` FOREIGN KEY (`member_id`) REFERENCES `members` (`id`),

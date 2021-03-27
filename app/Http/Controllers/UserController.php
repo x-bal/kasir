@@ -8,9 +8,6 @@ use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpdateRequest;
 
 
-
-
-
 class UserController extends Controller
 {
     public function index()
@@ -59,6 +56,8 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        $user->transaksi()->delete();
+        $user->order()->delete();
         $user->delete();
         return redirect()->route('users.index')->with('success', 'User berhasil dihapus');
     }

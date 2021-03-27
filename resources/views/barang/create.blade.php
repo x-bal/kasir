@@ -13,7 +13,7 @@
                         <div class="col-md-7">
                             <div class="form-group">
                                 <label for="nama_barang">Nama Barang</label>
-                                <input type="text" name="nama_barang" id="nama_barang" class="form-control">
+                                <input type="text" name="nama_barang" id="nama_barang" class="form-control" value="{{ old('nama_barang') }}">
 
                                 @error('nama_barang')
                                 <small class="text-danger">{{ $message }}</small>
@@ -36,7 +36,7 @@
 
                             <div class="form-group">
                                 <label for="stok">Jumlah Stok</label>
-                                <input type="number" name="stok" id="stok" class="form-control">
+                                <input type="number" name="stok" id="stok" class="form-control" value="{{ old('stok') }}">
 
                                 @error('stok')
                                 <small class="text-danger">{{ $message }}</small>
@@ -49,7 +49,7 @@
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label for="harga_pokok">Harga Pokok</label>
-                                <input type="number" name="harga_pokok" id="harga_pokok" class="form-control">
+                                <input type="number" name="harga_pokok" id="harga_pokok" class="form-control" value="{{ old('harga_pokok') }}">
 
                                 @error('harga_pokok')
                                 <small class="text-danger">{{ $message }}</small>
@@ -59,7 +59,7 @@
                             <div class="form-group">
                                 <label for="ppn">PPN</label>
                                 <small class="text-secondary">*(%)</small>
-                                <input type="number" name="ppn" id="ppn" class="form-control">
+                                <input type="number" name="ppn" id="ppn" class="form-control" value="{{ old('ppn') }}">
 
                                 @error('ppn')
                                 <small class="text-danger">{{ $message }}</small>
@@ -69,7 +69,7 @@
                             <div class="form-group">
                                 <label for="diskon">Diskon</label>
                                 <small class="text-secondary">*(%)</small>
-                                <input type="number" name="diskon" id="diskon" class="form-control">
+                                <input type="number" name="diskon" id="diskon" class="form-control" value="{{ old('diskon') }}">
 
                                 @error('diskon')
                                 <small class="text-danger">{{ $message }}</small>

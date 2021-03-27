@@ -19,6 +19,7 @@ class OrderController extends Controller
         $attr = [
             'transaksi_id' => $id,
             'barang_id' => $request->input('barang'),
+            'user_id' => auth()->user()->id,
         ];
         if (request('qty') == null) {
             $attr['qty'] = 1;

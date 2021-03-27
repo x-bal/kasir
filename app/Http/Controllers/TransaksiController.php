@@ -33,7 +33,10 @@ class TransaksiController extends Controller
         }
 
         $id = $transaksi + 1;
-        $orders = Order::with('barang')->where('transaksi_id', $id)->get();
+        $orders = Order::with('barang')->where([
+            ['transaksi_id', $id],
+            ['user_id', auth()->user()->id]
+        ])->get();
         $total = 0;
 
         return view('transaksi.create', compact('stok', 'members', 'total', 'orders'));

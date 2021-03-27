@@ -26,7 +26,7 @@
 
                     <div class="form-group">
                         <label for="jumlah">Jumlah</label>
-                        <input type="number" name="jumlah" id="jumlah" class="form-control">
+                        <input type="number" name="jumlah" id="jumlah" class="form-control" value="{{ old('stok') }}">
 
                         @error('jumlah')
                         <small class="text-danger">{{ $message }}</small>

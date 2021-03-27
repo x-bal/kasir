@@ -11,7 +11,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="text" name="username" id="username" class="form-control">
+                        <input type="text" name="username" id="username" class="form-control" value="{{ old('username') }}">
 
                         @error('username')
                         <small class="text-danger">{{ $message }}</small>
@@ -20,7 +20,7 @@
 
                     <div class="form-group">
                         <label for="nama">Nama</label>
-                        <input type="text" name="nama" id="nama" class="form-control">
+                        <input type="text" name="nama" id="nama" class="form-control" value="{{ old('nama') }}">
 
                         @error('nama')
                         <small class="text-danger">{{ $message }}</small>
@@ -46,7 +46,7 @@
 
                     <div class="form-group">
                         <label for="alamat">Alamat</label>
-                        <textarea name="alamat" id="alamat" rows="4" class="form-control"></textarea>
+                        <textarea name="alamat" id="alamat" rows="4" class="form-control">{{ old('alamat') }}</textarea>
 
                         @error('alamat')
                         <small class="text-danger">{{ $message }}</small>
@@ -55,7 +55,7 @@
 
                     <div class="form-group">
                         <label for="telp">Telp</label>
-                        <input type="number" name="telp" id="telp" class="form-control">
+                        <input type="number" name="telp" id="telp" class="form-control" value="{{ old('telp') }}">
 
                         @error('telp')
                         <small class="text-danger">{{ $message }}</small>

@@ -12,7 +12,7 @@
 
                     <div class="form-group">
                         <label for="nama_distributor">Nama Distributor</label>
-                        <input type="text" name="nama_distributor" id="nama_distributor" class="form-control">
+                        <input type="text" name="nama_distributor" id="nama_distributor" class="form-control" value="{{ old('nama_distributor') }}">
 
                         @error('nama_distributor')
                         <small class="text-danger">{{ $message }}</small>
@@ -21,7 +21,7 @@
 
                     <div class="form-group">
                         <label for="alamat">Alamat</label>
-                        <textarea name="alamat" id="alamat" rows="4" class="form-control"></textarea>
+                        <textarea name="alamat" id="alamat" rows="4" class="form-control">{{ old('alamat') }}</textarea>
 
                         @error('alamat')
                         <small class="text-danger">{{ $message }}</small>
@@ -30,7 +30,7 @@
 
                     <div class="form-group">
                         <label for="telp">Telp</label>
-                        <input type="number" name="telp" id="telp" class="form-control">
+                        <input type="number" name="telp" id="telp" class="form-control" value="{{ old('telp') }}">
 
                         @error('telp')
                         <small class="text-danger">{{ $message }}</small>

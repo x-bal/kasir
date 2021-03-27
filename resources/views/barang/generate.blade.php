@@ -33,7 +33,7 @@
                 <tr class="text-center" style="font-size: 15px;">
                     <th width="9">No.</th>
                     <th width="100">Kode Barang</th>
-                    <th width="170">Nama Barang</th>
+                    <th class="text-left" width="170">Nama Barang</th>
                     <th>Distributor</th>
                     <th width="9">Stok</th>
                     <th>Harga Pokok</th>
@@ -45,7 +45,7 @@
                 @foreach($barang as $brg)
                 <tr style="font-size: 14px;">
                     <td class="text-center">{{ $loop->iteration }}</td>
-                    <td>{{ $brg->kode_barang }}</td>
+                    <td class="text-center">{{ $brg->kode_barang }}</td>
                     <td>{{ $brg->nama_barang }}</td>
                     <td class="text-center">{{ $brg->distributor->nama_distributor }}</td>
                     <td class="text-center">{{ $brg->stok->jumlah }}</td>

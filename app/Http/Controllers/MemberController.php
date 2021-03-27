@@ -62,7 +62,12 @@ class MemberController extends Controller
 
     public function get(Member $member)
     {
-        return response($member);
+        $mem = Member::findOrFail($member->id);
+        if ($mem) {
+            return response($mem);
+        } else {
+            return response("No");
+        }
     }
 
     public function history(Member $member)

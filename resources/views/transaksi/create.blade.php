@@ -93,6 +93,7 @@
                         <div class="col-md-6">
                             <label for="total">Total Bayar</label>
                             <input type="number" name="total" id="total" value="{{ $total }}" class="form-control" readonly>
+                            <input type="hidden" id="getTotal" value="{{ $total }}">
 
                             @error('total')
                             <small class="text-danger">{{ $message }}</small>
@@ -102,9 +103,9 @@
                         <div class="col-md-6">
                             <label for="member">Member</label>
                             <select name="member_id" id="member" class="form-control select2">
-                                <option disabled selected>-- Pilih Member --</option>
+                                <option>-- Pilih Member --</option>
                                 @foreach($members as $member)
-                                <option value="{{ $member->id }}">{{ $member->nama_member }}</option>
+                                <option value="{{ $member->id }}">{{ $member->kode_member }} | {{ $member->nama_member }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -156,22 +157,28 @@
 
     $("#member").on('change', function() {
         var id = $(this).val();
+        if (id == '-- Pilih Member --') {
+            var tot = parseInt($("#getTotal").val())
+            $("#total").empty();
+            $("#total").val(tot);
+        } else {
+            $.ajax({
+                method: 'GET',
+                url: '/member/get/' + id,
+                success: function(result) {
+                    var total = parseInt($("#total").val());
+                    var disc = parseInt(result.disc);
 
-        $.ajax({
-            method: 'GET',
-            url: '/member/get/' + id,
-            success: function(result) {
-                var total = parseInt($("#total").val());
-                var disc = parseInt(result.disc);
+                    var totalDisc = (total * disc) / 100;
 
-                var totalDisc = (total * disc) / 100;
+                    var all = Math.round(total - totalDisc);
 
-                var all = Math.round(total - totalDisc);
+                    $("#total").empty();
+                    $("#total").val(all);
+                }
+            })
 
-                $("#total").empty();
-                $("#total").val(all);
-            }
-        })
+        }
     })
 
     const select = $('.select2').select2();

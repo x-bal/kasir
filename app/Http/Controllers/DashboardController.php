@@ -24,13 +24,22 @@ class DashboardController extends Controller
 
     public function UpdateProfile(User $user)
     {
-        request()->validate([
-            'username' => 'required|unique:users,username,' . $user->id,
-            'nama' => 'required',
-            'jk' => 'required',
-            'alamat' => 'required',
-            'telp' => 'required',
-        ]);
+        request()->validate(
+            [
+                'username' => 'required|unique:users,username,' . $user->id,
+                'nama' => 'required',
+                'jk' => 'required',
+                'alamat' => 'required',
+                'telp' => 'required',
+            ],
+            [
+                'username.unique' => 'Username tidak tersedia',
+                'nama.required' => 'Nama tidak boleh kosong',
+                'jk.required' => 'Pilih Jenis Kelamin',
+                'alamat.required' => 'Alamat tidak boleh kosong',
+                'telp.required' => 'Telp tidak boleh kosong',
+            ]
+        );
 
         $input = request()->all();
 
