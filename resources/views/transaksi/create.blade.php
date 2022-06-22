@@ -25,7 +25,7 @@
                     </div>
                     <div class="form-group">
                         <label for="qty">Qty</label>
-                        <input type="number" name="qty" id="qty" class="form-control">
+                        <input type="number" name="qty" id="qty" value="1" class="form-control">
                     </div>
 
                     <button type="submit" class="btn btn-sm btn-primary btn-tambah">Tambah</button>
@@ -103,7 +103,7 @@
                         <div class="col-md-6">
                             <label for="member">Member</label>
                             <select name="member_id" id="member" class="form-control select2">
-                                <option>-- Pilih Member --</option>
+                                <option value="0">-- Pilih Member --</option>
                                 @foreach($members as $member)
                                 <option value="{{ $member->id }}">{{ $member->kode_member }} | {{ $member->nama_member }}</option>
                                 @endforeach
