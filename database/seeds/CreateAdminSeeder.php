@@ -19,7 +19,7 @@ class CreateAdminSeeder extends Seeder
             'alamat' => 'Kp.Cikeler',
             'telp' => '082114823280',
             'password' => bcrypt('password'),
-            'level_id' => 1
+            'level' => 'admin'
         ]);
     }
 }
