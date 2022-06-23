@@ -15,8 +15,8 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('transaksi_id');
-            $table->foreignId('barang_id')->constrained('barang');
+            $table->foreignId('transaksi_id')->constrained('transaksi')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('barang_id')->constrained('barang')->cascadeOnDelete()->cascadeOnUpdate();
             $table->integer('qty');
             $table->timestamps();
         });

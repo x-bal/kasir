@@ -16,8 +16,8 @@ class CreateTransaksiTable extends Migration
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
             $table->string('invoice');
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('member_id')->constrained('members')->nullable();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('member_id')->default(0)->constrained('members')->cascadeOnDelete()->cascadeOnUpdate();
             $table->bigInteger('total');
             $table->bigInteger('bayar');
             $table->bigInteger('kembalian');
